@@ -1,0 +1,146 @@
+/* Modern Sidebar Styling */
+.modern-sidebar {
+  background-color: #0E82FD !important;
+  width: 260px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.modern-sidebar .sidebar-inner {
+  padding: 20px 0;
+}
+
+.modern-sidebar #sidebar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modern-sidebar #sidebar-menu ul li {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.modern-sidebar #sidebar-menu ul li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  position: relative;
+}
+
+.modern-sidebar #sidebar-menu ul li a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modern-sidebar #sidebar-menu ul li a svg {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.modern-sidebar #sidebar-menu ul li a span {
+  flex: 1;
+}
+
+/* Active menu item */
+.modern-sidebar #sidebar-menu ul li.active a {
+  color: #0E82FD;
+  background: #ffffff;
+  position: relative;
+}
+
+.modern-sidebar #sidebar-menu ul li.active a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #ffffff;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Remove menu titles for cleaner look */
+.modern-sidebar .menu-title {
+  display: none;
+}
+
+/* Scrollbar styling for dark theme */
+.modern-sidebar .os-scrollbar-vertical {
+  width: 6px;
+}
+
+.modern-sidebar .os-scrollbar-track {
+  background: #0E82FD !important;
+}
+
+.modern-sidebar .os-scrollbar-handle {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.modern-sidebar .os-scrollbar-handle:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Mini sidebar behavior */
+body.mini-sidebar .modern-sidebar {
+  width: 70px;
+}
+
+body.mini-sidebar .modern-sidebar #sidebar-menu ul li a span {
+  display: none;
+}
+
+body.mini-sidebar .modern-sidebar #sidebar-menu ul li a {
+  justify-content: center;
+  padding: 12px 20px;
+}
+
+body.mini-sidebar .modern-sidebar #sidebar-menu ul li a svg {
+  margin-right: 0;
+}
+
+/* Expand menu on hover */
+body.mini-sidebar.expand-menu .modern-sidebar {
+  width: 260px;
+}
+
+body.mini-sidebar.expand-menu .modern-sidebar #sidebar-menu ul li a span {
+  display: block;
+}
+
+body.mini-sidebar.expand-menu .modern-sidebar #sidebar-menu ul li a {
+  justify-content: flex-start;
+  padding: 12px 24px;
+}
+
+body.mini-sidebar.expand-menu .modern-sidebar #sidebar-menu ul li a svg {
+  margin-right: 12px;
+}
+
+/* Submenu styling (if needed) */
+.modern-sidebar #sidebar-menu ul li.submenu > a .menu-arrow {
+  margin-left: auto;
+}
+
+.modern-sidebar #sidebar-menu ul li.submenu ul {
+  background: rgba(0, 0, 0, 0.2);
+  padding-left: 0;
+}
+
+.modern-sidebar #sidebar-menu ul li.submenu ul li a {
+  padding-left: 56px;
+  font-size: 13px;
+}
