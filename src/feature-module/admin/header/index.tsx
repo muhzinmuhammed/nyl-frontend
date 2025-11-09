@@ -13,11 +13,11 @@ import {
 } from "../imagepath";
 
 const Header: React.FC = () => {
-  
+
   const handleSidebar = () => {
     document.body.classList.toggle("mini-sidebar");
   };
-  
+
   const handleSidebarMobileMenu = () => {
     document.body.classList.toggle("slide-nav");
   };
@@ -41,14 +41,14 @@ const Header: React.FC = () => {
         {/* /Logo */}
         <div className="top-nav-search">
           <form>
-            <input
+            {/* <input
               type="text"
               className="form-control"
               placeholder="Search here"
-            />
-            <button className="btn" type="submit">
+            /> */}
+            {/* <button className="btn" type="submit">
               <Search size={16} />
-            </button>
+            </button> */}
           </form>
         </div>
 
@@ -64,6 +64,7 @@ const Header: React.FC = () => {
         {/* /Mobile Menu Toggle */}
         {/* Header Right Menu */}
         <ul className="nav user-menu">
+          <button className="bg-black text-white" style={{ marginTop: '5px',width:'150px',height:'44px',borderRadius:'10px'  }}>Need Help</button>
           {/* Notifications */}
           <li className="nav-item dropdown noti-dropdown">
             <Link
@@ -74,7 +75,7 @@ const Header: React.FC = () => {
               <Bell size={20} />
               <span className="badge rounded-pill">3</span>
             </Link>
-            <div className="dropdown-menu notifications">
+            {/* <div className="dropdown-menu notifications">
               <div className="topnav-dropdown-header">
                 <span className="notification-title">Notifications</span>
                 <Link to="#" className="clear-noti">
@@ -189,7 +190,7 @@ const Header: React.FC = () => {
               <div className="topnav-dropdown-footer">
                 <Link to="#">View all Notifications</Link>
               </div>
-            </div>
+            </div> */}
           </li>
           {/* /Notifications */}
           {/* User Menu */}

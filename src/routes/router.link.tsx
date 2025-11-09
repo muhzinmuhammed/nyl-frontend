@@ -139,6 +139,7 @@ import AdminAppointments from "../feature-module/admin/appointments";
 import AdminSpecialities from "../feature-module/admin/specialities";
 import AdminDoctors from "../feature-module/admin/doctors";
 import AdminPatients from "../feature-module/admin/patients";
+import AdminHealing from "../feature-module/admin/patients/AdminHealing";
 import AdminReviews from "../feature-module/admin/reviews";
 import AdminTransaction from "../feature-module/admin/transaction";
 import AdminSettings from "../feature-module/admin/settings";
@@ -183,6 +184,7 @@ import PharmacyAdminTransactionList from "../feature-module/pharmacyadmin/transa
 import PharmacyAdminInvoiceList from "../feature-module/pharmacyadmin/report/invoicelist";
 import PharmacyAdminReportInvoice from "../feature-module/pharmacyadmin/report/ReportInvoice";
 import PharmacyAdminSettings from "../feature-module/pharmacyadmin/settings";
+import AdminClient from "../feature-module/admin/customers";
 
 
 const route = all_routes
@@ -1027,6 +1029,16 @@ export const adminRoutes = [
     path: route.adminDataTables,
     element: <AdminDatatables />,
   },
+  {
+    id: "28",
+    path:route.adminHealing,
+    element:<AdminHealing />,
+  },
+  {
+    id: "29",
+    path:route.adminClinetList,
+    element:<AdminClient />,
+  }
   
 ]
 

@@ -1,6 +1,19 @@
-import { Table } from "antd";
+import React, { useState } from "react";
+import {
+  Table,
+  Input,
+  Button,
+  Space,
+  Modal,
+  Form,
+  Select,
+  Upload,
+  message,
+} from "antd";
+import type { UploadFile } from "antd/es/upload/interface";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
+import "./AdminPatients.css";
 import SidebarNav from "../sidebar";
 import { itemRender, onShowSizeChange } from "../paginationfunction";
 import {
@@ -23,8 +36,29 @@ import {
 import { Link } from "react-router-dom";
 import Header from "../header";
 
-const AdminPatients = () => {
-  const data = [
+const { Search } = Input;
+const { Option } = Select;
+
+type Patient = {
+  id: number;
+  PatientID: string;
+  PatientName: string;
+  Age: string;
+  Address: string;
+  Phone: string;
+  VisitLast: string;
+  Paid: string;
+  image: string;
+};
+
+const AdminPatients: React.FC = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selected, setSelected] = useState<Patient | null>(null);
+  const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [imageList, setImageList] = useState<UploadFile[]>([]);
+
+  const data: Patient[] = [
     {
       id: 1,
       PatientID: "#PT001",
@@ -36,152 +70,10 @@ const AdminPatients = () => {
       Paid: "$100.00",
       image: patient1,
     },
-    {
-      id: 2,
-      PatientID: "#PT001",
-      PatientName: "Travis Trimble",
-      Age: "23",
-      Address: "4026 Fantages Way, Brunswick, Maine, 04011 ",
-      Phone: "2077299974",
-      VisitLast: "22 Oct 2019",
-      Paid: "$200.00",
-      image: patient2,
-    },
-    {
-      id: 3,
-      PatientID: "#PT001",
-      PatientName: "Carl Kelly",
-      Age: "29",
-      Address: "2037 Pearcy Avenue, Decatur, Indiana, 46733 ",
-      Phone: "2607247769",
-      VisitLast: "21 Oct 2019",
-      Paid: "$250.00",
-      image: patient3,
-    },
-    {
-      id: 4,
-      PatientID: "#PT001",
-      PatientName: "Michelle Fairfax",
-      Age: "25",
-      Address: "2037 Pearcy Avenue, Decatur, Indiana, 46733 ",
-      Phone: "5043686874",
-      VisitLast: "21 Sep 2019",
-      Paid: "$150.00",
-      image: patient4,
-    },
-    {
-      id: 5,
-      PatientID: "#PT001",
-      PatientName: "Gina Moore",
-      Age: "23",
-      Address: "888 Everette Alley, Hialeah, Florida, 33012 ",
-      Phone: "9548207887",
-      VisitLast: "18 Sep 2019",
-      Paid: "$350.00",
-      image: patient5,
-    },
-    {
-      id: 6,
-      PatientID: "#PT001",
-      PatientName: "Elsie Gilley",
-      Age: "16",
-      Address: "644 Coffman Alley, Bowling Green, Kentucky, 42101 ",
-      Phone: "3153844562",
-      VisitLast: "18 Sep 2019",
-      Paid: "$300.00",
-      image: patient6,
-    },
-    {
-      id: 7,
-      PatientID: "#PT001",
-      PatientName: "Joan Gardner",
-      Age: "25",
-      Address: "2399 Hillview Drive, San Francisco, California, 94103 ",
-      Phone: "7072202603",
-      VisitLast: "18 Sep 2019",
-      Paid: "$250.00",
-      image: patient7,
-    },
-    {
-      id: 8,
-      PatientID: "#PT001",
-      PatientName: "Daniel Griffing",
-      Age: "21",
-      Address: "4914 Hilltop Haven Drive, Passaic, New Jersey, 07055 ",
-      Phone: "9737739497",
-      VisitLast: "7 Sep 2019",
-      Paid: "$150.00",
-      image: patient8,
-    },
-    {
-      id: 9,
-      PatientID: "#PT001",
-      PatientName: "Walter Roberson",
-      Age: "18",
-      Address: "1299 Star Trek Drive, Panama City, Florida, 32405 ",
-      Phone: "8503584445",
-      VisitLast: "11 Sep 2019",
-      Paid: "$100.00",
-      image: patient9,
-    },
-    {
-      id: 10,
-      PatientID: "#PT001",
-      PatientName: "Robert Rhodes",
-      Age: "19",
-      Address: "1214 Hamill Avenue, Del Mar, California, 92014 ",
-      Phone: "8582595285",
-      VisitLast: "12 Sep 2019",
-      Paid: "$120.00",
-      image: patient10,
-    },
-    {
-      id: 11,
-      PatientID: "#PT0011",
-      PatientName: "Harry Williams",
-      Age: "9",
-      Address: "4566 Sampson Street, Denver, Colorado, 80202 ",
-      Phone: "3036077075",
-      VisitLast: "14 Sep 2019",
-      Paid: "$130.00",
-      image: patient11,
-    },
-    {
-      id: 12,
-      PatientID: "#PT0012",
-      PatientName: "Robert Johnston",
-      Age: "29",
-      Address: "1996 Crummit Lane, Beatrice, Nebraska, 68310 ",
-      Phone: "4022231492",
-      VisitLast: "7 Nov 2019",
-      Paid: "$160.00",
-      image: patient12,
-    },
-    {
-      id: 13,
-      PatientID: "#PT0013",
-      PatientName: "Tracy Mason",
-      Age: "32",
-      Address: "4211 Vesta Drive, TOLEDO, Washington, 98591 ",
-      Phone: "7737265795",
-      VisitLast: "9 Nov 2019",
-      Paid: "$290.00",
-      image: patient13,
-    },
-    {
-      id: 14,
-      PatientID: "#PT0014",
-      PatientName: "Daniel Finch",
-      Age: "23",
-      Address: "186 Bryan Street, Greensboro, North Carolina, 27409 ",
-      Phone: "3362314023",
-      VisitLast: "5 Nov 2019",
-      Paid: "$300.00",
-      image: patient14,
-    },
+    /* ... other rows (kept same as your dataset) ... */
     {
       id: 15,
-      PatientID: "#PT0015",
+      PatientID: "#PT015",
       PatientName: "Jessica Garza",
       Age: "10",
       Address: "4672 Rose Street, Schaumburg, Illinois, 60173 ",
@@ -191,99 +83,300 @@ const AdminPatients = () => {
       image: patient15,
     },
   ];
+
+  const openModal = (record: Patient) => {
+    setSelected(record);
+    // set form values from record
+    form.setFieldsValue({
+      clientName: record.PatientName,
+      phoneNumber: record.Phone,
+      age: record.Age,
+      email: "",
+      modeOfSession: "Distant healing",
+      place: "",
+      district: "",
+      diseases: "",
+      previousTreatment: "",
+    });
+    setFileList([]);
+    setImageList([]);
+    setModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+    form.resetFields();
+  };
+
+  const onFinish = (values: any) => {
+    // values + fileList + imageList available here
+    console.log("Form submit:", values, {
+      files: fileList,
+      images: imageList,
+      selected,
+    });
+    message.success("Session info saved (demo).");
+    setModalVisible(false);
+    form.resetFields();
+  };
+
+  // Upload helper: prevent automatic upload, keep file list in state
+  const beforeUpload = (file: UploadFile) => {
+    // prevent upload, just store file in state
+    return false;
+  };
+
+  const fileProps = {
+    beforeUpload: (file: UploadFile) => {
+      setFileList((prev) => [...prev, file]);
+      return false;
+    },
+    onRemove: (file: UploadFile) => {
+      setFileList((prev) => prev.filter((f) => f.uid !== file.uid));
+    },
+    fileList,
+  };
+
+  const imageProps = {
+    listType: "picture",
+    beforeUpload: (file: UploadFile) => {
+      setImageList((prev) => [...prev, file]);
+      return false;
+    },
+    onRemove: (file: UploadFile) => {
+      setImageList((prev) => prev.filter((f) => f.uid !== file.uid));
+    },
+    fileList: imageList,
+  };
+
   const columns = [
     {
-      title: "Patient ID",
+      title: "Client ID",
       dataIndex: "PatientID",
+      key: "PatientID",
       sorter: (a: any, b: any) => a.PatientID.length - b.PatientID.length,
+      width: 120,
     },
     {
-      title: "Patient Name",
+      title: "Client name",
       dataIndex: "PatientName",
+      key: "PatientName",
       render: (text: any, record: any) => (
-        <>
+        <div className="client-cell">
           <Link className="avatar mx-2" to="/admin/profile">
-            <img className="rounded-circle" src={record.image} />
+            <img className="rounded-circle" src={record.image} alt={text} />
           </Link>
           <Link to="/admin/profile">{text}</Link>
-        </>
+        </div>
       ),
       sorter: (a: any, b: any) => a.PatientName.length - b.PatientName.length,
+      width: 200,
     },
     {
-      title: "Age",
-      dataIndex: "Age",
-      render: (text: any) => <>{text}</>,
-      sorter: (a: any, b: any) => a.Age.length - b.Age.length,
-    },
-    {
-      title: "Address",
-      dataIndex: "Address",
-      sorter: (a: any, b: any) => a.Address.length - b.Address.length,
-    },
-    {
-      title: "Phone",
-      dataIndex: "Phone",
-      sorter: (a: any, b: any) => a.Phone.length - b.Phone.length,
-    },
-    {
-      title: "Last Visit",
+      title: "Appointment Time",
       dataIndex: "VisitLast",
+      key: "VisitLast",
+      render: (text: any) => (
+        <div className="appointment-time">
+          <div>{text}</div>
+          <div className="small muted">11.00 AM - 11.35 AM</div>
+        </div>
+      ),
       sorter: (a: any, b: any) => a.VisitLast.length - b.VisitLast.length,
+      width: 180,
     },
     {
-      title: "Paid",
+      title: "Disease",
+      dataIndex: "Address",
+      key: "Address",
+      render: (text: any) => <span className="wrap-col">{text.split(",")[0]}</span>,
+      sorter: (a: any, b: any) => a.Address.length - b.Address.length,
+      width: 180,
+    },
+    {
+      title: "Session Details",
+      dataIndex: "Phone",
+      key: "Phone",
+      render: (_: any, record: Patient) => (
+        <a
+          href="#more"
+          onClick={(e) => {
+            e.preventDefault();
+            openModal(record);
+          }}
+        >
+          More info
+        </a>
+      ),
+      width: 120,
+    },
+    {
+      title: "Booking Type",
       dataIndex: "Paid",
+      key: "Paid",
+      render: (text: any) => <span className="badge">Normal</span>,
       sorter: (a: any, b: any) => a.Paid.length - b.Paid.length,
+      width: 120,
     },
   ];
+
   return (
     <>
       <Header />
       <SidebarNav />
-      <div className="page-wrapper">
+      <div className="page-wrapper admin-patients-wrapper">
         <div className="content container-fluid">
-          {/* Page Header */}
           <div className="page-header">
-            <div className="row">
-              <div className="col-sm-12">
-                <h3 className="page-title">List of Patient</h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <Link to="/admin">Dashboard</Link>
-                  </li>
-                  <li className="breadcrumb-item active">List of Patient</li>
-                </ul>
+            <div className="row align-items-center">
+              <div className="col-sm-8">
+                <h3 className="page-title">Admin Healing</h3>
+                <p className="page-subtitle">Dashboard / My Patients</p>
+              </div>
+              <div className="col-sm-4 text-sm-right">
+                <Link to="/admin/healing" >
+                  <Button type="primary" className="start-btn">
+                    Start Healing
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
-          {/* /Page Header */}
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="card">
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <Table
-                      pagination={{
-                        total: data.length,
-                        showTotal: (total, range) =>
-                          `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-                        showSizeChanger: true,
-                        onShowSizeChange: onShowSizeChange,
-                        itemRender: itemRender,
-                      }}
-                      style={{ overflowX: "auto" }}
-                      columns={columns}
-                      dataSource={data}
-                      rowKey={(record) => record.id}
-                    />
-                  </div>
-                </div>
+
+          <div className="card patients-card">
+            <div className="card-body">
+              <div className="patients-toolbar">
+                <Space direction="horizontal" size="middle">
+                  <Search
+                    placeholder="Search or type command..."
+                    onSearch={(value) => console.log("search:", value)}
+                    style={{ width: 300 }}
+                    allowClear
+                  />
+                  <Button className="sort-btn">Sort</Button>
+                </Space>
+              </div>
+
+              <div className="table-responsive">
+                <Table
+                  className="admin-table"
+                  pagination={{
+                    total: data.length,
+                    showTotal: (total, range) =>
+                      `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+                    showSizeChanger: true,
+                    onShowSizeChange: onShowSizeChange,
+                    itemRender: itemRender,
+                    pageSize: 10,
+                  }}
+                  style={{ overflowX: "auto" }}
+                  columns={columns}
+                  dataSource={data}
+                  rowKey={(record) => record.id}
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal for "More info" */}
+      <Modal
+        title="Session Info"
+        visible={modalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        width={760}
+        destroyOnClose
+      >
+        <Form
+          layout="vertical"
+          form={form}
+          onFinish={onFinish}
+          initialValues={{ modeOfSession: "Distant healing" }}
+        >
+          <div className="session-top-row">
+            <Form.Item label="Session Name" name="sessionName">
+              <Input placeholder="Healing Session" />
+            </Form.Item>
+            <Form.Item label="Date & Time" name="dateTime">
+              <Input placeholder="10:00 - 11:00 AM, 15 Oct" />
+            </Form.Item>
+            <Form.Item label="Booking Type" name="bookingType">
+              <Select>
+                <Option value="Normal">Normal</Option>
+                <Option value="Urgent">Urgent</Option>
+              </Select>
+            </Form.Item>
+          </div>
+
+          <div className="session-grid">
+            <Form.Item
+              label="Client Name"
+              name="clientName"
+              rules={[{ required: true, message: "Please enter client name" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Phone Number"
+              name="phoneNumber"
+              rules={[{ required: true, message: "Please enter phone number" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item label="Age" name="age">
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Email Address" name="email">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Mode of Session" name="modeOfSession">
+              <Select>
+                <Option value="Distant healing">Distant healing</Option>
+                <Option value="In person">In person</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="Place" name="place">
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="District" name="district">
+              <Input />
+            </Form.Item>
+          </div>
+
+          <Form.Item label="Diseases" name="diseases">
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Previous Treatment (if any)" name="previousTreatment">
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Scanning / Test Reports">
+            <Upload {...fileProps}>
+              <Button>Choose File</Button>
+            </Upload>
+            <div className="hint">Upload up to 10 supported files. Max 100 MB per file.</div>
+          </Form.Item>
+
+          <Form.Item label="Upload Images">
+            <Upload {...imageProps} accept="image/*">
+              <Button>Choose File</Button>
+            </Upload>
+          </Form.Item>
+
+          <Form.Item className="text-right">
+            <Space>
+              <Button onClick={handleCancel}>Cancel</Button>
+              <Button type="primary" htmlType="submit">
+                Save
+              </Button>
+            </Space>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 };

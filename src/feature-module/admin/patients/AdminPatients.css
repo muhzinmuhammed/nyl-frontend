@@ -1,0 +1,262 @@
+/* AdminPatients.css
+   Extended with modal/form styles and table width reductions + overflow handling
+*/
+
+/* Basic page wrapper */
+.admin-patients-wrapper .content,
+.page-wrapper .content {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Page header */
+.page-header {
+  margin-bottom: 18px;
+}
+.page-title {
+  font-size: 20px;
+  margin: 0;
+  color: #222;
+  font-weight: 600;
+}
+.page-subtitle {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Patients card */
+.patients-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(16, 24, 40, 0.06);
+  border: 1px solid rgba(16, 24, 40, 0.04);
+  overflow: hidden;
+}
+
+/* toolbar above table */
+.patients-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+/* Start Healing button */
+.start-btn {
+  background: #0e82fd;
+  border-color: #0e82fd;
+  box-shadow: none;
+  color: #fff;
+}
+.start-btn:hover,
+.start-btn:focus {
+  background: #096be6;
+  border-color: #096be6;
+  color: #fff;
+}
+
+/* Sort button */
+.sort-btn {
+  border: 1px solid #e6e9ef;
+  background: #fff;
+  color: #222;
+}
+
+/* Table container to match spacing in design */
+/* IMPORTANT: set a max-width to reduce table width and center it */
+.table-responsive {
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px;
+  max-width: 920px; /* reduce overall table width here */
+  margin: 0 auto; /* center the table area */
+  overflow-x: auto; /* still allow horizontal scroll if absolutely necessary */
+}
+
+/* AntD table: force a stable layout so truncation works predictably */
+.admin-table .ant-table {
+  border: none;
+  table-layout: fixed; /* allow columns to be constrained */
+  width: 100%; /* take the full width of .table-responsive (max 920px) */
+}
+
+/* AntD table header styling - blue header row */
+.admin-table .ant-table-thead > tr > th {
+  background: #0e82fd;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-bottom: 0;
+  vertical-align: middle;
+  text-align: left;
+  padding: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Round the header corners of table */
+.admin-table .ant-table-thead > tr > th:first-child {
+  border-top-left-radius: 6px;
+}
+.admin-table .ant-table-thead > tr > th:last-child {
+  border-top-right-radius: 6px;
+}
+
+/* Table body styling */
+.admin-table .ant-table-tbody > tr > td {
+  background: #ffffff;
+  vertical-align: middle;
+  color: #2b2b2b;
+  padding: 12px;
+  border-bottom: 1px solid #eef2f6;
+
+  /* Prevent cells from expanding the table and hide overflow with ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* If you want certain cells to wrap instead of truncate, add a class .wrap-col to their render */
+.admin-table .wrap-col {
+  white-space: normal;
+  word-break: break-word;
+  text-overflow: unset;
+}
+
+/* Smaller, muted text (for appointment time subtitle) */
+.small.muted {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Avatar in client name cell */
+.client-cell {
+  display: flex;
+  align-items: center;
+}
+.client-cell .avatar img,
+.client-cell img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+
+/* Appointment time column styles */
+.appointment-time {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Badge for Booking Type */
+.badge {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #374151;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Pagination alignment and look */
+.admin-table .ant-pagination {
+  margin: 12px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.admin-table .ant-pagination-item-active a {
+  background: #0e82fd !important;
+  border-color: #0e82fd !important;
+  color: #fff !important;
+}
+
+/* Links */
+.admin-table a {
+  color: #0e82fd;
+}
+.admin-table a:hover {
+  color: #096be6;
+  text-decoration: underline;
+}
+
+/* Modal & Form specific styles */
+.ant-modal-body {
+  padding: 20px 24px;
+}
+.session-top-row {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.session-top-row .ant-form-item {
+  flex: 1 1 30%;
+  min-width: 220px;
+}
+.session-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 8px;
+}
+@media (max-width: 767px) {
+  .session-grid {
+    grid-template-columns: 1fr;
+  }
+  .session-top-row .ant-form-item {
+    min-width: 100%;
+  }
+}
+
+/* Upload hints */
+.hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* Small screens: reduce max-width and allow wrapping of toolbar */
+@media (max-width: 991px) {
+  .table-responsive {
+    max-width: 740px;
+  }
+}
+
+@media (max-width: 767px) {
+  .admin-patients-wrapper .content {
+    margin: 16px;
+    padding: 0;
+  }
+  .patients-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .patients-toolbar .ant-input-search {
+    width: 100% !important;
+  }
+  .patients-toolbar .sort-btn {
+    width: 100%;
+  }
+
+  /* On very small screens prefer wrapping of long cells (switch off truncate) */
+  .admin-table .ant-table-tbody > tr > td {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .table-responsive {
+    padding: 8px;
+    max-width: 100%;
+  }
+}

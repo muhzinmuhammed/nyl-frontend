@@ -1,11 +1,14 @@
+import React, { useState } from "react";
+import { Table, Input, DatePicker, Button } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { SearchOutlined } from "@ant-design/icons";
+import SidebarNav from "../sidebar";
+import Header from "../header";
+import { Link } from "react-router-dom";
+import "./AdminPayments.css";
 
-import { Trash2 } from "react-feather";
-import { Table } from "antd";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-daterangepicker/daterangepicker.css";
 import {
   patient1,
-  patient10,
   patient2,
   patient3,
   patient4,
@@ -14,179 +17,129 @@ import {
   patient7,
   patient8,
   patient9,
+  patient10,
 } from "../imagepath";
-import { itemRender, onShowSizeChange } from "../paginationfunction";
-import SidebarNav from "../sidebar";
-import { Link } from "react-router-dom";
-import Header from "../header";
 
-const AdminTransaction = () => {
-  const data = [
+const { RangePicker } = DatePicker;
+
+interface PaymentData {
+  key: number;
+  clientId: string;
+  clientName: string;
+  avatar: string;
+  appointmentTime: string;
+  modeOfSession: string;
+  amount: string;
+  sessionDetails: string;
+  paymentStatus: string;
+}
+
+const AdminPayments: React.FC = () => {
+  const [searchText, setSearchText] = useState("");
+
+  const data: PaymentData[] = [
     {
-      id: 1,
-      InvoiceNumber: "#IN0001",
-      PatientID: "#PT001",
-      PatientName: "Charlene Reed",
-      TotalAmount: "$100.00",
-      CreatedDate: "09 Sep 2019",
-      CreateDate: "320,800",
-      image: patient1,
+      key: 1,
+      clientId: "#NYL457",
+      clientName: "John Doe",
+      avatar: patient1,
+      appointmentTime: "5 Nov 2019 • 11:00 AM – 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹520",
+      sessionDetails: "More info",
+      paymentStatus: "Done",
     },
     {
-      id: 2,
-      InvoiceNumber: "#IN0002",
-      PatientID: "#PT002",
-      PatientName: "Travis Trimble",
-      TotalAmount: "$200.00",
-      CreatedDate: "12 Jan 2019",
-      CreateDate: "206,850",
-      image: patient2,
+      key: 2,
+      clientId: "#NYL493",
+      clientName: "Michel",
+      avatar: patient2,
+      appointmentTime: "5 Nov 2019 • 11:00 AM – 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹1541",
+      sessionDetails: "More info",
+      paymentStatus: "Not Done",
     },
     {
-      id: 3,
-      InvoiceNumber: "#IN0003",
-      PatientID: "#PT003",
-      PatientName: "Carl Kelly",
-      TotalAmount: "$250.00",
-      CreatedDate: "29 Mar 2019",
-      CreateDate: "850,000",
-      image: patient3,
+      key: 3,
+      clientId: "#NYL457",
+      clientName: "John Doe",
+      avatar: patient3,
+      appointmentTime: "5 Nov 2019 • 11:00 AM – 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹520",
+      sessionDetails: "More info",
+      paymentStatus: "Done",
     },
     {
-      id: 4,
-      InvoiceNumber: "#IN0004",
-      PatientID: "#PT004",
-      PatientName: "Michelle Fairfax",
-      TotalAmount: "$150.00",
-      CreatedDate: "25 Aor 2011",
-      CreateDate: "163,000",
-      image: patient4,
-    },
-    {
-      id: 5,
-      InvoiceNumber: "#IN0005",
-      PatientID: "#PT005",
-      PatientName: "Gina Moore",
-      TotalAmount: "$350.00",
-      CreatedDate: "28 Nov 2008",
-      CreateDate: "170,750",
-      image: patient5,
-    },
-    {
-      id: 6,
-      InvoiceNumber: "#IN0006",
-      PatientID: "#PT006",
-      PatientName: "Elsie Gilley",
-      TotalAmount: "$300.00",
-      CreatedDate: "02 Dec 2012",
-      CreateDate: "86,000",
-      image: patient6,
-    },
-    {
-      id: 7,
-      InvoiceNumber: "#IN0007",
-      PatientID: "#PT007",
-      PatientName: "Joan Gardner",
-      TotalAmount: "$250.00",
-      CreatedDate: "06 Oct 2012",
-      CreateDate: "86",
-      image: patient7,
-    },
-    {
-      id: 8,
-      InvoiceNumber: "#IN0008",
-      PatientID: "#PT008",
-      PatientName: "Daniel Griffing",
-      TotalAmount: "$150.00",
-      CreatedDate: "14 Sep 2010",
-      CreateDate: "90,560",
-      image: patient8,
-    },
-    {
-      id: 9,
-      InvoiceNumber: "#IN0009",
-      PatientID: "#PT009",
-      PatientName: "Walter Roberson",
-      TotalAmount: "$100.00",
-      CreatedDate: "15 Sep 2009",
-      CreateDate: "103,600",
-      image: patient9,
-    },
-    {
-      id: 10,
-      InvoiceNumber: "#IN00010",
-      PatientID: "#PT0010",
-      PatientName: "Robert Rhodes",
-      TotalAmount: "$120.00",
-      CreatedDate: "08 Apr 2015",
-      CreateDate: "205,500",
-      image: patient10,
+      key: 4,
+      clientId: "#NYL493",
+      clientName: "Michel",
+      avatar: patient4,
+      appointmentTime: "5 Nov 2019 • 11:00 AM – 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹1541",
+      sessionDetails: "More info",
+      paymentStatus: "Not Done",
     },
   ];
-  const columns = [
-    {
-      title: "Invoice Number",
-      dataIndex: "InvoiceNumber",
-      render: (text: any) => (
-        <>
-          <Link
-            to="/admin/invoice"
-            className="text-decoration-none text-primary"
-          >
-            {text}
-          </Link>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.InvoiceNumber.length - b.InvoiceNumber.length,
-    },
-    {
-      title: "Patient ID",
-      dataIndex: "PatientID",
-      sorter: (a: any, b: any) => a.PatientID.length - b.PatientID.length,
-    },
 
+  const columns: ColumnsType<PaymentData> = [
     {
-      title: "Patient Name",
-      dataIndex: "PatientName",
-      render: (text: any, record: any) => (
-        <>
-          <Link className="avatar mx-2" to="/admin/profile">
-            <img className="rounded-circle" src={record.image} />
-          </Link>
-          <Link to="/admin/profile">{text}</Link>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.PatientName.length - b.PatientName.length,
-    },
-
-    {
-      title: "Total Amount",
-      dataIndex: "TotalAmount",
-      sorter: (a: any, b: any) => a.TotalAmount.length - b.TotalAmount.length,
+      title: "Client Id",
+      dataIndex: "clientId",
+      key: "clientId",
     },
     {
-      title: "Status",
-      dataIndex: "",
-      render: () => (
-        <span>
-          {" "}
-          <span className="badge rounded-pill bg-success inv-badge">Paid</span>
-        </span>
-      ),
-      sorter: (a: any, b: any) => a.length - b.length,
-    },
-    {
-      title: "Action",
-      className: "text-end",
-      dataIndex: "",
-      render: () => (
-        <div className="text-end">
-          <Link to="#" className="btn btn-sm bg-danger-light">
-            <Trash2 size={16} /> Delete
-          </Link>
+      title: "Client Name",
+      dataIndex: "clientName",
+      key: "clientName",
+      render: (text, record) => (
+        <div className="client-cell">
+          <img src={record.avatar} alt={text} className="client-avatar" />
+          <span>{text}</span>
         </div>
       ),
-      sorter: (a: any, b: any) => a.length - b.length,
+    },
+    {
+      title: "Appointment Time",
+      dataIndex: "appointmentTime",
+      key: "appointmentTime",
+    },
+    {
+      title: "Mode of Session",
+      dataIndex: "modeOfSession",
+      key: "modeOfSession",
+      render: (text) => <span className="session-mode">{text}</span>,
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+    },
+    {
+      title: "Session Details",
+      dataIndex: "sessionDetails",
+      key: "sessionDetails",
+      render: () => (
+        <Button className="more-info-btn" size="small">
+          More Info
+        </Button>
+      ),
+    },
+    {
+      title: "Payment Status",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
+      render: (text) => (
+        <span
+          className={`status-badge ${
+            text === "Done" ? "status-done" : "status-notdone"
+          }`}
+        >
+          {text}
+        </span>
+      ),
     },
   ];
 
@@ -196,73 +149,34 @@ const AdminTransaction = () => {
       <SidebarNav />
       <div className="page-wrapper">
         <div className="content container-fluid">
-          {/* Page Header */}
           <div className="page-header">
-            <div className="row">
-              <div className="col-sm-12">
-                <h3 className="page-title">Transactions</h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <Link to="/admin">Dashboard</Link>
-                  </li>
-                  <li className="breadcrumb-item active">Transactions</li>
-                </ul>
-              </div>
-            </div>
+            <h3 className="page-title">Payments</h3>
+            <p className="breadcrumb">Dashboard / Payments</p>
           </div>
-          {/* /Page Header */}
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="card">
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <Table
-                      pagination={{
-                        total: data.length,
-                        showTotal: (total, range) =>
-                          `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-                        showSizeChanger: true,
-                        onShowSizeChange: onShowSizeChange,
-                        itemRender: itemRender,
-                      }}
-                      style={{ overflowX: "auto" }}
-                      columns={columns}
-                      dataSource={data}
-                      rowKey={(record) => record.id}
-                      //  onChange={this.handleTableChange}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div
-        className="modal fade"
-        id="delete_modal"
-        aria-hidden="true"
-        role="dialog"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-body">
-              <div className="form-content p-2">
-                <h4 className="modal-title">Delete</h4>
-                <p className="mb-4">Are you sure want to delete?</p>
-                <button type="button" className="btn btn-primary mx-1">
-                  Save{" "}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
+          <div className="filter-bar d-flex justify-content-between align-items-center mb-3">
+            <Input
+              placeholder="Search"
+              prefix={<SearchOutlined />}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              style={{ width: 250 }}
+            />
+            <RangePicker />
+          </div>
+
+          <div className="card p-3">
+            <Table
+              columns={columns}
+              dataSource={data.filter((item) =>
+                item.clientName.toLowerCase().includes(searchText.toLowerCase())
+              )}
+              pagination={{
+                total: data.length,
+                showSizeChanger: true,
+              }}
+              className="payment-table"
+            />
           </div>
         </div>
       </div>
@@ -270,4 +184,4 @@ const AdminTransaction = () => {
   );
 };
 
-export default AdminTransaction;
+export default AdminPayments;

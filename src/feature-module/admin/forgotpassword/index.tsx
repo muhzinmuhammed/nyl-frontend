@@ -1,48 +1,41 @@
-import { logoWhite } from "../imagepath";
+import React from "react";
 import { Link } from "react-router-dom";
+import { logoWhite } from "../imagepath";
+import "./AdminForgot.css";
+
 const AdminForgotPassword = () => {
-  const config = "/";
   return (
-    <>
-      <div className="main-wrapper login-body">
-        <div className="login-wrapper">
-          <div className="container">
-            <div className="loginbox">
-              <div className="login-left">
-                <img className="img-fluid" src={logoWhite} alt="Logo" />
-              </div>
-              <div className="login-right">
-                <div className="login-right-wrap">
-                  <h1>Forgot Password?</h1>
-                  <p className="account-subtitle">
-                    Enter your email to get a password reset link
-                  </p>
-                  {/* Form */}
-                  <form action={`${config}admin/login`}>
-                    <div className="form-group">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Email"
-                      />
-                    </div>
-                    <div className="form-group mb-0">
-                      <button className="btn btn-primary w-100" type="submit">
-                        Reset Password
-                      </button>
-                    </div>
-                  </form>
-                  {/* /Form */}
-                  <div className="text-center dont-have">
-                    Remember your password? <Link to="/admin/login">Login</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="admin-login-page">
+      <div className="login-card">
+        <div className="login-logo">
+          <img src={logoWhite} alt="Logo" />
         </div>
+        <h2 className="login-title">Forgot Password</h2>
+        <p className="login-subtitle">
+          Enter your Email to get a password reset link
+        </p>
+
+        <form>
+          <div className="input-group">
+            <i className="fa fa-user"></i>
+            <input type="text" placeholder="Username" />
+          </div>
+
+          {/* <div className="input-group">
+            <i className="fa fa-lock"></i>
+            <input type="password" placeholder="Enter your Password" />
+          </div> */}
+
+          <button type="submit" className="login-btn">
+            Submit
+          </button>
+        </form>
+
+        {/* <div className="forgot-password">
+          <Link to="/admin/forgotpassword">Forgot Password?</Link>
+        </div> */}
       </div>
-    </>
+    </div>
   );
 };
 

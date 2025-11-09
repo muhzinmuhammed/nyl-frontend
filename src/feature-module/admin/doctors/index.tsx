@@ -1,235 +1,457 @@
-import { Table } from "antd";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-daterangepicker/daterangepicker.css";
-import { itemRender, onShowSizeChange } from "../paginationfunction";
-import SidebarNav from "../sidebar";
+import React, { useState } from "react";
+import { Table, Input, Button, Modal, Form, Upload, Select, message } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import {
-  doctor_thumb_01,
-  doctor_thumb_02,
-  doctor_thumb_03,
-  doctor_thumb_04,
-  doctor_thumb_05,
-  doctor_thumb_06,
-  doctor_thumb_07,
-  doctor_thumb_08,
-  doctor_thumb_09,
-  doctor_thumb_10,
-} from "../imagepath";
-import { Link } from "react-router-dom";
+  SearchOutlined,
+  SortAscendingOutlined,
+  UploadOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import SidebarNav from "../sidebar";
 import Header from "../header";
+import "./healer.css";
+import { patient1, patient2, patient3, patient4, patient5 } from "../imagepath";
 
-const AdminDoctors = () => {
-  const data = [
+const { Option } = Select;
+
+interface ClientData {
+  key: number;
+  clientId: string;
+  clientName: string;
+  avatar?: string;
+  age?: number;
+  address?: string;
+  phone?: string;
+  email?: string;
+  status: "Activate" | "Deactivate";
+  totalSessions?: number;
+}
+
+const initialData: ClientData[] = [
+  {
+    key: 1,
+    clientId: "#HL457",
+    clientName: "John Doe",
+    avatar: patient1,
+    age: 25,
+    address: "Place",
+    phone: "+91 1234567890",
+    email: "email@gmail.com",
+    totalSessions: 23,
+    status: "Activate",
+  },
+  {
+    key: 2,
+    clientId: "#HL493",
+    clientName: "Michel",
+    avatar: patient2,
+    age: 29,
+    address: "Place",
+    phone: "+91 23456543222",
+    email: "email@gmail.com",
+    totalSessions: 29,
+    status: "Deactivate",
+  },
+  {
+    key: 3,
+    clientId: "#HL498",
+    clientName: "Sara",
+    avatar: patient3,
+    age: 22,
+    address: "Place",
+    phone: "+91 8976543210",
+    email: "email@gmail.com",
+    totalSessions: 12,
+    status: "Activate",
+  },
+];
+
+const AdminDocters: React.FC = () => {
+  const [searchText, setSearchText] = useState("");
+  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<ClientData | null>(null);
+  const [data, setData] = useState<ClientData[]>(initialData);
+  const [form] = Form.useForm();
+  const [addForm] = Form.useForm();
+  const [uploadFileList, setUploadFileList] = useState<any[]>([]);
+
+  const columns: ColumnsType<ClientData> = [
     {
-      id: 1,
-      DoctorName: "Dr. Darren Elder",
-      Speciality: "Dental ",
-      Earned: "$5000.00 ",
-      Date: "11 Jun 2019",
-      time: "4.50 AM",
-      image: doctor_thumb_02,
-      AccountStatus: "checkbox",
+      title: "Healer id",
+      dataIndex: "clientId",
+      key: "clientId",
+      render: (text, record) => (
+        <span
+          className="clickable-id"
+          onClick={() => handleClientClick(record)}
+        >
+          {text}
+        </span>
+      ),
     },
     {
-      id: 2,
-      DoctorName: "Dr. Deborah Angel",
-      Speciality: "Cardiology ",
-      Earned: "$3300.00 ",
-      Date: "4 Jan 2018",
-      time: "9.40 AM",
-      image: doctor_thumb_03,
-      AccountStatus: "checkbox",
+      title: "Healer name",
+      dataIndex: "clientName",
+      key: "clientName",
+      render: (text, record) => (
+        <div className="client-cell">
+          {record.avatar && (
+            <img src={record.avatar} alt={text} className="client-avatar" />
+          )}
+          <span className="client-name-text">{text}</span>
+        </div>
+      ),
     },
     {
-      id: 3,
-      DoctorName: "Dr. John Gibbs",
-      Speciality: "Dental ",
-      Earned: "$4100.00",
-      Date: "21 Apr 2018",
-      time: "02.59 PM",
-      image: doctor_thumb_09,
-      AccountStatus: "checkbox",
+      title: "Total Sessions",
+      dataIndex: "totalSessions",
+      key: "totalSessions",
+      align: "center",
     },
     {
-      id: 4,
-      DoctorName: "Dr. Katharine Berthold",
-      Speciality: "Orthopaedics ",
-      Earned: "$4000.00 ",
-      Date: "23 Mar 2019",
-      time: "02.50 PM",
-      image: doctor_thumb_06,
-      AccountStatus: "checkbox",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
     },
     {
-      id: 5,
-      DoctorName: "Dr. Linda Tobin",
-      Speciality: "Neurology ",
-      Earned: "$2000.00 ",
-      Date: "14 Dec 2018",
-      time: "01.59 AM",
-      image: doctor_thumb_07,
-      AccountStatus: "checkbox",
+      title: "Phone number",
+      dataIndex: "phone",
+      key: "phone",
     },
     {
-      id: 6,
-      DoctorName: "Dr. Marvin Campbell",
-      Speciality: "Orthopaedics ",
-      Earned: "$3700.00 ",
-      Date: "24 Jan 2019",
-      time: "02.59 AM",
-      image: doctor_thumb_05,
-      AccountStatus: "checkbox",
-    },
-    {
-      id: 7,
-      DoctorName: "Dr. Olga Barlow",
-      Speciality: "Dental ",
-      Earned: "$3500.00 ",
-      Date: "15 Feb 2018",
-      time: "03.59 AM",
-      image: doctor_thumb_10,
-      AccountStatus: "checkbox",
-    },
-    {
-      id: 8,
-      DoctorName: "Dr. Paul Richard",
-      Speciality: "Dermatology ",
-      Earned: "$3000.00 ",
-      Date: "11 Jan 2019",
-      time: "02.59 AM",
-      image: doctor_thumb_08,
-      AccountStatus: "checkbox",
-    },
-    {
-      id: 9,
-      DoctorName: "Dr. Ruby Perrin",
-      Speciality: "Dental ",
-      Earned: "$3100.00 ",
-      Date: "14 Jan 2019",
-      time: "02.59 AM",
-      image: doctor_thumb_01,
-      AccountStatus: "checkbox",
-    },
-    {
-      id: 10,
-      DoctorName: "Dr. Sofia Brient",
-      Speciality: "Urology ",
-      Earned: "$3500.00 ",
-      Date: "5 Jul 2019",
-      time: "12.59 AM",
-      image: doctor_thumb_04,
-      AccountStatus: "checkbox",
+      title: "Account status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <Button
+          className={`status-btn ${status === "Activate" ? "btn-green" : "btn-red"}`}
+          size="small"
+        >
+          {status}
+        </Button>
+      ),
+      align: "center",
     },
   ];
-  const columns = [
-    {
-      title: "Doctor Name",
-      dataIndex: "DoctorName",
-      render: (text: any, record: any) => (
-        <>
-          <Link className="avatar mx-2" to="/admin/profile">
-            <img className="rounded-circle" src={record.image} />
-          </Link>
-          <Link to="/admin/profile">{text}</Link>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.DoctorName.length - b.DoctorName.length,
+
+  const handleClientClick = (record: ClientData) => {
+    setSelectedClient(record);
+    setIsManageModalOpen(true);
+    // populate form values for editing
+    form.setFieldsValue({
+      clientName: record.clientName,
+      phone: record.phone,
+      age: record.age,
+      email: record.email,
+      address: record.address,
+      totalSessions: record.totalSessions,
+      status: record.status,
+    });
+  };
+
+  const handleManageCancel = () => {
+    setIsManageModalOpen(false);
+    setSelectedClient(null);
+    form.resetFields();
+  };
+
+  const handleManageSave = async () => {
+    try {
+      const values = await form.validateFields();
+      if (!selectedClient) return;
+      setData((prev) =>
+        prev.map((d) =>
+          d.key === selectedClient.key ? { ...d, ...values } : d
+        )
+      );
+      message.success("Healer updated");
+      handleManageCancel();
+    } catch (err) {
+      // validation failed
+    }
+  };
+
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+    addForm.resetFields();
+    setUploadFileList([]);
+  };
+
+  const handleAddCancel = () => {
+    setIsAddModalOpen(false);
+    addForm.resetFields();
+    setUploadFileList([]);
+  };
+
+  const handleAddHealer = async () => {
+    try {
+      const values = await addForm.validateFields();
+      const newKey = data.length ? Math.max(...data.map((d) => d.key)) + 1 : 1;
+      const newHealer: ClientData = {
+        key: newKey,
+        clientId: values.clientId || `#HL${1000 + newKey}`,
+        clientName: values.clientName,
+        email: values.email,
+        phone: values.phone,
+        age: values.age,
+        totalSessions: values.totalSessions || 0,
+        address: values.address,
+        status: values.status || "Activate",
+        avatar:
+          uploadFileList.length > 0
+            ? (uploadFileList[0].thumbUrl || uploadFileList[0].url)
+            : undefined,
+      };
+      setData((prev) => [newHealer, ...prev]);
+      message.success("Healer added");
+      handleAddCancel();
+    } catch (err) {
+      // validation failed
+    }
+  };
+
+  const uploadProps = {
+    onRemove: (file: any) => {
+      setUploadFileList((current) => {
+        const index = current.indexOf(file);
+        const newFileList = current.slice();
+        newFileList.splice(index, 1);
+        return newFileList;
+      });
     },
-    {
-      title: "Speciality",
-      dataIndex: "Speciality",
-      sorter: (a: any, b: any) => a.Speciality.length - b.Speciality.length,
+    beforeUpload: (file: any) => {
+      // prevent auto upload
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        // add a thumbnail URL so we can display it later
+        setUploadFileList((current) => [
+          ...current,
+          {
+            uid: file.uid,
+            name: file.name,
+            status: "done",
+            url: e.target?.result,
+            thumbUrl: e.target?.result,
+          },
+        ]);
+      };
+      reader.readAsDataURL(file);
+      return false;
     },
-    {
-      title: "Member Since",
-      render: (record: any) => (
-        <>
-          <span className="user-name">{record.Date}</span>
-          <br />
-          <span>{record.time}</span>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.length - b.length,
-    },
-    {
-      title: "Earned",
-      dataIndex: "Earned",
-      sorter: (a: any, b: any) => a.Earned.length - b.Earned.length,
-    },
-    {
-      title: "Account Status",
-      dataIndex: "AccountStatus",
-      render: (record: any) => {
-        return (
-          <div className="status-toggle">
-            <input
-              id={`rating${record?.id}`}
-              className="check"
-              type="checkbox"
-              //  checked={false}
-            />
-            <label
-              htmlFor={`rating${record?.id}`}
-              className="checktoggle checkbox-bg"
-            >
-              checkbox
-            </label>
-          </div>
-        );
-      },
-      sorter: (a: any, b: any) => a.AccountStatus.length - b.AccountStatus.length,
-    },
-  ];
+    fileList: uploadFileList,
+    listType: "picture",
+  };
+
   return (
     <>
+      {/* if you use Ant Design globally, ensure antd css imported in index.tsx */}
       <Header />
       <SidebarNav />
-      <div className="page-wrapper">
+      <div className="page-wrapper healers-page">
         <div className="content container-fluid">
-          {/* Page Header */}
           <div className="page-header">
-            <div className="row">
-              <div className="col-sm-12">
-                <h3 className="page-title">List of Doctors</h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <Link to="/admin">Dashboard</Link>
-                  </li>
-                  <li className="breadcrumb-item active">List of Doctors</li>
-                </ul>
-              </div>
+            <h3 className="page-title">Manage Healers</h3>
+            <p className="breadcrumb">Dashboard / Healers</p>
+          </div>
+
+          <div className="filter-bar d-flex justify-content-between align-items-center mb-3">
+            <div className="d-flex align-items-center gap-2">
+              <Input
+                placeholder="Search"
+                prefix={<SearchOutlined />}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                style={{ width: 260 }}
+                allowClear
+              />
+              <Button
+                icon={<SortAscendingOutlined />}
+                className="sort-btn"
+                type="default"
+              >
+                Sort
+              </Button>
+            </div>
+
+            <div>
+              <Button className="create-btn-black" onClick={openAddModal}>
+                <PlusOutlined /> Create New Healer
+              </Button>
             </div>
           </div>
-          {/* /Page Header */}
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="card">
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <Table
-                      pagination={{
-                        total: data.length,
-                        showTotal: (total, range) =>
-                          `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-                        showSizeChanger: true,
-                        onShowSizeChange: onShowSizeChange,
-                        itemRender: itemRender,
-                      }}
-                      style={{ overflowX: "auto" }}
-                      columns={columns}
-                      dataSource={data}
-                      rowKey={(record) => record.id}
-                      //  onChange={this.handleTableChange}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          <div className="card p-3 white-panel">
+            <Table
+              columns={columns}
+              dataSource={data.filter((item) =>
+                item.clientName.toLowerCase().includes(searchText.toLowerCase())
+              )}
+              pagination={{
+                total: data.length,
+                pageSize: 10,
+                showSizeChanger: true,
+                pageSizeOptions: ["5", "10", "20", "50"],
+              }}
+              className="client-table"
+              rowKey="key"
+            />
           </div>
         </div>
       </div>
+
+      {/* Manage Healer Modal (opens when clicking id) */}
+      <Modal
+        title="Manage Healer"
+        open={isManageModalOpen}
+        onCancel={handleManageCancel}
+        onOk={handleManageSave}
+        okText="Save"
+        width={760}
+        className="client-modal"
+      >
+        {selectedClient && (
+          <div className="client-modal-content">
+            <p className="breadcrumb">
+              Dashboard / Healers / {selectedClient.clientId}
+            </p>
+            <div className="modal-card">
+              <Form layout="vertical" form={form}>
+                <div className="row">
+                  <div className="col-md-6">
+                    <Form.Item
+                      label="Healer Name"
+                      name="clientName"
+                      rules={[{ required: true, message: "Please input name" }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </div>
+                  <div className="col-md-6">
+                    <Form.Item label="Phone Number" name="phone">
+                      <Input />
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-4">
+                    <Form.Item label="Age" name="age">
+                      <Input />
+                    </Form.Item>
+                  </div>
+                  <div className="col-md-4">
+                    <Form.Item label="Total Sessions" name="totalSessions">
+                      <Input />
+                    </Form.Item>
+                  </div>
+                  <div className="col-md-4">
+                    <Form.Item label="Account Status" name="status">
+                      <Select>
+                        <Option value="Activate">Activate</Option>
+                        <Option value="Deactivate">Deactivate</Option>
+                      </Select>
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-12">
+                    <Form.Item label="Email" name="email">
+                      <Input />
+                    </Form.Item>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: 8 }}>
+                  <Button danger className="btn-red deactivate-btn">
+                    Deactivate Account
+                  </Button>
+                </div>
+              </Form>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Add Healer Modal */}
+      <Modal
+        title="Create New Healer"
+        open={isAddModalOpen}
+        onCancel={handleAddCancel}
+        onOk={handleAddHealer}
+        okText="Create"
+        width={640}
+        className="client-modal"
+      >
+        <Form layout="vertical" form={addForm}>
+          <div className="row">
+            <div className="col-md-6">
+              <Form.Item
+                label="Healer Name"
+                name="clientName"
+                rules={[{ required: true, message: "Please enter healer name" }]}
+              >
+                <Input />
+              </Form.Item>
+            </div>
+            <div className="col-md-6">
+              <Form.Item label="Healer ID" name="clientId">
+                <Input placeholder="#HLxxx (auto if empty)" />
+              </Form.Item>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-6">
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[{ type: "email", message: "Invalid email" }]}
+              >
+                <Input />
+              </Form.Item>
+            </div>
+
+            <div className="col-md-6">
+              <Form.Item label="Phone" name="phone">
+                <Input />
+              </Form.Item>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-4">
+              <Form.Item label="Age" name="age">
+                <Input />
+              </Form.Item>
+            </div>
+
+            <div className="col-md-4">
+              <Form.Item label="Total Sessions" name="totalSessions">
+                <Input />
+              </Form.Item>
+            </div>
+
+            <div className="col-md-4">
+              <Form.Item label="Account Status" name="status" initialValue="Activate">
+                <Select>
+                  <Option value="Activate">Activate</Option>
+                  <Option value="Deactivate">Deactivate</Option>
+                </Select>
+              </Form.Item>
+            </div>
+          </div>
+
+          <Form.Item label="Avatar / Photo">
+            <Upload {...uploadProps}>
+              <Button icon={<UploadOutlined />}>Choose File</Button>
+            </Upload>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 };
 
-export default AdminDoctors;
+export default AdminDocters;
