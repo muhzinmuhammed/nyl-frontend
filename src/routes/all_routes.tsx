@@ -195,4 +195,5 @@ pharmacyAdminReportInvoice: "/pharmacyadmin/ReportInvoice",
 pharmacyAdminProfile: "/pharmacyadmin/profile",
 pharmacyAdminSettings: "/pharmacyadmin/settings",
 
+
 }

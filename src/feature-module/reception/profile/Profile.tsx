@@ -3,7 +3,7 @@ import SidebarNav from "../sidebar";
 import Header from "../header";
 import "./AdminProfile.css";
 
-const PharmacyProfile = () => {
+const AdminProfile = () => {
   return (
     <>
       <Header />
@@ -18,30 +18,20 @@ const PharmacyProfile = () => {
           </div>
 
           <div className="profile-card">
-            <h5 className="profile-card-title">Account Details</h5>
+            <h5 className="profile-card-title">Admin Account</h5>
 
             <div className="form-container">
               <div className="form-group">
-                <label>Name</label>
+                <label>Username</label>
                 <input type="text" className="form-control" placeholder="Username" />
               </div>
 
               <div className="form-group">
-                <label>Phone Number</label>
-                <input type="password" className="form-control" placeholder="Phone Number" />
+                <label>Password</label>
+                <input type="password" className="form-control" placeholder="Password" />
               </div>
             </div>
-            <div className="form-container">
-              <div className="form-group">
-                <label>Email ID</label>
-                <input type="email" className="form-control" placeholder="Email ID" />
-              </div>
 
-              <div className="form-group">
-                <label>Address</label>
-                <input type="password" className="form-control" placeholder="Address" />
-              </div>
-            </div>
             <div className="update-btn-container">
               <button className="update-btn">Update Data</button>
             </div>
@@ -52,4 +42,4 @@ const PharmacyProfile = () => {
   );
 };
 
-export default PharmacyProfile;
+export default AdminProfile;

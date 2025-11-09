@@ -57,13 +57,13 @@ const SidebarNav = () => {
           <div className="sidebar-inner slimscroll">
             <div id="sidebar-menu" className="sidebar-menu">
               <ul>
-                <li className={pathname === "/pharmacyadmin" ? "active" : ""}>
-                  <Link to="/pharmacyadmin">
+                <li className={pathname === "/admin" ? "active" : ""}>
+                  <Link to="/admin">
                     <Home size={18} />
                     <span>Dashboard</span>
                   </Link>
                 </li>
-                {/* <li
+                <li
                   className={
                     pathname?.includes("/admin/appointment-list") ? "active" : ""
                   }
@@ -76,28 +76,28 @@ const SidebarNav = () => {
                   <Link to="/admin/patient-list">
                     <Users size={18} /> <span>My Patients</span>
                   </Link>
-                </li> */}
+                </li>
                 <li
                   className={
                     pathname?.includes("transactions-list") ? "active" : ""
                   }
                 >
-                  <Link to="/pharmacyadmin/transactions-list">
+                  <Link to="/admin/transactions-list">
                     <Activity size={18} /> <span>Payments</span>
                   </Link>
                 </li>
-                {/* <li className={pathname?.includes("client") ? "active" : ""}>
+                <li className={pathname?.includes("client") ? "active" : ""}>
                   <Link to="/admin/client-list">
                     <User size={18} /> <span>Clients</span>
                   </Link>
-                </li> */}
-                <li className={pathname?.includes("order") ? "active" : ""}>
-                  <Link to="/pharmacyadmin/order">
-                    <Star size={18} /> <span>Booking History</span>
+                </li>
+                <li className={pathname?.includes("healer") ? "active" : ""}>
+                  <Link to="/admin/healer-list">
+                    <Star size={18} /> <span>Healers</span>
                   </Link>
                 </li>
                 <li className={pathname?.includes("profile") ? "active" : ""}>
-                  <Link to="/pharmacyadmin/profile">
+                  <Link to="/admin/profile">
                     <UserPlus size={18} /> <span>Profile</span>
                   </Link>
                 </li>

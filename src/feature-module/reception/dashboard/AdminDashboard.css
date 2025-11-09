@@ -1,0 +1,250 @@
+/* Dashboard hero with gradient similar to the provided design */
+.dashboard-hero {
+  position: relative;
+  padding: 28px 0 80px; /* leave space at bottom for overlapping cards */
+  background: linear-gradient(135deg, #4b00ff 0%, #3a1fbf 40%, #6f2ce8 100%);
+  color: #fff;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+/* inner container to align hero content */
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.hero-left .hero-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.hero-left .hero-subtitle {
+  margin: 4px 0 0;
+  color: rgba(255,255,255,0.9);
+}
+
+/* hero right action area */
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.hero-search {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  min-width: 260px;
+  outline: none;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.hero-search::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+.btn-help {
+  background: #000;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* hero cards that overlap the hero bottom */
+.hero-cards {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  position: relative;
+  top: 36px; /* negative overlap effect (visually overlapping the hero) */
+  padding: 0 20px 10px;
+  z-index: 2;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px;
+  box-shadow: 0 8px 20px rgba(22,27,39,0.06);
+  display: flex;
+  align-items: center;
+  transition: transform .15s ease;
+  min-height: 84px;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-card-body {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* icon color variants */
+.stat-card-alert .stat-icon {
+  background: linear-gradient(180deg,#ff5252,#ff3b30);
+}
+.stat-card-revenue .stat-icon {
+  background: linear-gradient(180deg,#f7c948,#f4b400);
+}
+.stat-card-clients .stat-icon {
+  background: linear-gradient(180deg,#3ad29f,#04bd6c);
+}
+.stat-card-healers .stat-icon {
+  background: linear-gradient(180deg,#70e0a6,#12c05b);
+}
+
+.stat-content .stat-title {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+.stat-content .stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 4px;
+}
+.stat-content .stat-sub {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 6px;
+}
+
+/* Charts row spacing and card styling */
+.charts-row {
+  margin-top: 28px;
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.card-chart.large-chart .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #eef2f6;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(22,27,39,0.04);
+}
+
+.card .card-body {
+  padding: 18px;
+}
+
+.card .card-header {
+  padding: 18px;
+  border-bottom: 1px solid #f3f6f9;
+}
+
+.side-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* small side cards */
+.small-card .small-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.small-card .badge {
+  background: #f3f6ff;
+  color: #4b24ff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* segmented controls */
+.segmented-controls {
+  display: inline-flex;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+.segmented-controls .seg {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #eef2f6;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+}
+.segmented-controls .seg.active {
+  background: #6f2ce8;
+  border-color: #6f2ce8;
+  color: #fff;
+}
+
+/* placeholders for chart components to ensure spacing */
+.sessions-chart-placeholder,
+.bar-chart-placeholder {
+  min-height: 140px;
+}
+
+/* responsive adjustments */
+@media (max-width: 991px) {
+  .hero-cards {
+    grid-template-columns: repeat(2, 1fr);
+    top: 28px;
+  }
+  .hero-inner {
+    padding: 0 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .hero-right .hero-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .charts-row {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    top: 18px;
+  }
+  .hero-search {
+    min-width: 140px;
+  }
+}

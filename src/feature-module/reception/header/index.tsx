@@ -7,7 +7,9 @@ import {
   doctor_thumb_01,
   logo,
   logoSmall,
-  
+  patient1,
+  patient2,
+  patient3,
 } from "../imagepath";
 
 const Header: React.FC = () => {

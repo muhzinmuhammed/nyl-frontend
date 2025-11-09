@@ -185,6 +185,7 @@ import PharmacyAdminInvoiceList from "../feature-module/pharmacyadmin/report/inv
 import PharmacyAdminReportInvoice from "../feature-module/pharmacyadmin/report/ReportInvoice";
 import PharmacyAdminSettings from "../feature-module/pharmacyadmin/settings";
 import AdminClient from "../feature-module/admin/customers";
+import ReceptionDashBoard from "../feature-module/reception/dashboard";
 
 
 const route = all_routes
@@ -1143,4 +1144,13 @@ export const pharmacyAdminRoutes = [
     path: route.pharmacyAdminSettings,
     element: <PharmacyAdminSettings />,
   },  
+
+]
+
+export const receptionistRoutes = [
+  {
+    id: "1",
+    path: route.receptionDashboard,
+    element: <ReceptionDashBoard />,
+  }
 ]

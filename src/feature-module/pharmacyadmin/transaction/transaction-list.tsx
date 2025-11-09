@@ -1,308 +1,184 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Table, Input, DatePicker, Button } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { SearchOutlined } from "@ant-design/icons";
 import SidebarNav from "../sidebar";
-import {
-  Productss,
-  Product1,
-  Product3,
-  Product4,
-  Product5,
-  Product6,
-} from "./image";
-// import FeatherIcon from 'feather-icons-react';
-import { Table } from "antd";
-import {
-  itemRender,
-  onShowSizeChange,
-} from "../paginationfunction";
 import Header from "../header";
-import { Trash2 } from "react-feather";
+import { Link } from "react-router-dom";
+import "./PharmacyAdminTransactionList.css";
+
+import {  logo } from "../imagepath";
+
+const { RangePicker } = DatePicker;
+
+interface PaymentData {
+  key: number;
+  clientId: string;
+  clientName: string;
+  avatar: string;
+  appointmentTime: string;
+  modeOfSession?: string;
+  amount: string;
+  sessionDetails: string;
+  payment_mode: string;
+}
 
 const PharmacyAdminTransactionList: React.FC = () => {
-  const data = [
+  const [searchText, setSearchText] = useState("");
+
+  const data: PaymentData[] = [
     {
-      InvoiceName: "#IN0001",
-      ProductID: "#01",
-      image: Productss,
-      ProductName: "Abilify",
-      TotalAmount: "$100.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
+      key: 1,
+      clientId: "#NYL457",
+      clientName: "John Doe",
+      payment_mode: "Cash",
+      avatar: "patient1",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹520",
+      sessionDetails: "View details",
     },
     {
-      InvoiceName: "#IN0002",
-      ProductID: "#02",
-      image: Product3,
-      ProductName: "ITONE eye drops 10ml",
-      TotalAmount: "$200.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
+      key: 2,
+      clientId: "#NYL493",
+      clientName: "Michel",
+      avatar: "patient2",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹1541",
+      sessionDetails: "View details",
+      payment_mode: "Cash",
     },
     {
-      InvoiceName: "#IN0003",
-      ProductID: "#03",
-      image: Product4,
-      ProductName: "Safi Natural Blood Purifie",
-      TotalAmount: "$250.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
+      key: 3,
+      clientId: "#NYL457",
+      clientName: "John Doe",
+      avatar: "patient3",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹520",
+      sessionDetails: "View details",
+      payment_mode: "Cash",
     },
     {
-      InvoiceName: "#IN0004",
-      ProductID: "#04",
-      image: Product5,
-      ProductName: "Moisturization & Nourishment",
-      TotalAmount: "$150.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
-    },
-    {
-      InvoiceName: "#IN0005",
-      ProductID: "#05",
-      image: Product6,
-      ProductName: "Blackhead Removal",
-      TotalAmount: "$350.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
-    },
-    {
-      InvoiceName: "#IN0006",
-      ProductID: "#06",
-      image: Productss,
-      ProductName: "Abilify",
-      TotalAmount: "$300.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
-    },
-    {
-      InvoiceName: "#IN0007",
-      ProductID: "#07",
-      image: Product6,
-      ProductName: "Blackhead Removal",
-      TotalAmount: "$250.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
-    },
-    {
-      InvoiceName: "#IN0008",
-      ProductID: "#08",
-      image: Product3,
-      ProductName: "ITONE eye drops 10ml",
-      TotalAmount: "$150.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
-    },
-    {
-      InvoiceName: "#IN0009",
-      ProductID: "#09",
-      image: Productss,
-      ProductName: "Whitening & Fairness",
-      TotalAmount: "$100.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
-    },
-    {
-      InvoiceName: "#IN0010",
-      ProductID: "#10",
-      image: Product1,
-      ProductName: "Adderall",
-      TotalAmount: "$120.00",
-      status: "paid",
-      bg: "badge rounded-pill bg-success inv-badge",
+      key: 4,
+      clientId: "#NYL493",
+      clientName: "Michel",
+      avatar: "patient4",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹1541",
+      sessionDetails: "View details",
+      payment_mode: "Cash",
     },
   ];
-  const columns = [
-    {
-      title: "Invoice Name",
-      dataIndex: "InvoiceName",
-      render: (text: any) => (
-        <>
-          <Link
-            to="/pharmacyadmin/ReportInvoice"
-            className="text-decoration-none"
-          >
-            {text}
-          </Link>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.InvoiceName.length - b.InvoiceName.length,
-    },
-    {
-      title: "Product ID",
-      dataIndex: "ProductID",
-      render: (text: any) => (
-        <>
-          <td>
-            <span>{text}</span>
-          </td>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.ProductID.length - b.ProductID.length,
-    },
-    {
-      title: "Product Name",
-      dataIndex: "ProductName",
-      render: (text: any, record: any) => (
-        <>
-          <td>
-            <img
-              src={record.image}
-              className="avatar-img"
-              alt="product image"
-              width={35}
-              height={35}
-            />
-            <span className=" mx-2">{text}</span>
-          </td>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.ProductName.length - b.ProductName.length,
-    },
 
+  const columns: ColumnsType<PaymentData> = [
     {
-      title: "Total Amount",
-      dataIndex: "TotalAmount",
-      render: (text: any) => (
-        <>
-          <Link
-            to="/admin/transaction-list"
-            className="text-decoration-none text-primary"
-          >
-            {text}
-          </Link>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.TotalAmount.length - b.TotalAmount.length,
-    },
-    {
-      title: "Status",
-      dataIndex: "",
-      render: () => (
-        <span>
-          {" "}
-          <span className="badge rounded-pill bg-success inv-badge">Paid</span>
-        </span>
-      ),
-      sorter: (a: any, b: any) => a.length - b.length,
-    },
-
-    {
-      title: "Action",
-      className: "text-end",
-      dataIndex: "",
-      render: () => (
-        <div className="text-end">
-          <div className="actions">
-            <Link
-              className="btn btn-sm bg-danger-light"
-              data-bs-toggle="modal"
-              to="#delete_modal"
-            >
-              <Trash2 size={16} /> Delete
-            </Link>
+      title: "Patient name",
+      dataIndex: "clientName",
+      key: "clientName",
+      render: (text, record) => (
+        <div className="client-cell-left">
+          <img src={record.avatar} alt={text} className="client-avatar" />
+          <div className="client-meta">
+            <div className="client-name">{text}</div>
+            <div className="client-id">{record.clientId}</div>
           </div>
         </div>
       ),
-      sorter: (a: any, b: any) => a.length - b.length,
+    },
+    {
+      title: "Appointment Time",
+      dataIndex: "appointmentTime",
+      key: "appointmentTime",
+      render: (text: string) => {
+        const [date, time] = text.split("\n");
+        return (
+          <div className="appointment-col">
+            <div className="appt-date">{date}</div>
+            <div className="appt-time">{time}</div>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Booking details",
+      dataIndex: "sessionDetails",
+      key: "sessionDetails",
+      render: (text) => (
+        <Link to="#" className="view-details">
+          {text}
+        </Link>
+      ),
+    },
+    {
+      title: "Payment mode",
+      dataIndex: "payment_mode",
+      key: "payment_mode",
+      render: (text) => <span className="pill payment-pill">{text}</span>,
+      align: "center",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+      render: (text) => <div className="amount-cell">{text}</div>,
+      align: "right",
     },
   ];
 
+  const filteredData = data.filter((item) =>
+    item.clientName.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <>
-    <Header location={{ pathname: "dashboard" }} />
-      <SidebarNav />
-      <>
-        <>
-          {/* Page Wrapper */}
-          <div className="page-wrapper">
-            <div className="content container-fluid">
-              {/* Page Header */}
-              <div className="page-header">
-                <div className="row">
-                  <div className="col-sm-12">
-                    <h3 className="page-title mb-0">Transactions</h3>
-                    <ul className="breadcrumb">
-                      <li className="breadcrumb-item">
-                        <Link to="/pharmacyadmin">Dashboard</Link>
-                      </li>
-                      <li className="breadcrumb-item active">Transactions</li>
-                    </ul>
-                  </div>
+      <Header />
+      <div className="nyl-layout">
+        <SidebarNav />
+        <div className="page-wrapper nyl-page">
+          <div className="content container-fluid">
+            <div className="page-header nyl-page-header">
+              <div className="page-header-left">
+                <div>
+                  <h3 className="page-title nyl-title">Payments</h3>
+                  <p className="breadcrumb nyl-breadcrumb">Dashboard / Payments</p>
                 </div>
               </div>
-              {/* /Page Header */}
-              <div className="row">
-                <div className="col-sm-12">
-                  <div className="card">
-                    <div className="card-header border-bottom-0">
-                      <div className="row align-items-center">
-                        <div className="col-auto custom-list d-flex">
-                          <div className="form-custom me-2">
-                            <div
-                              id="tableSearch"
-                              className="dataTables_wrapper"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="card-body p-0">
-                      <div className="table-responsive">
-                        <Table
-                          pagination={{
-                            total: data.length,
-                            showTotal: (total, range) =>
-                              `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-                            showSizeChanger: true,
-                            onShowSizeChange: onShowSizeChange,
-                            itemRender: itemRender,
-                          }}
-                          style={{ overflowX: "auto" }}
-                          columns={columns}
-                          dataSource={data}
-                          rowKey={(record) => record.ProductID}
-                          //  onChange={this.handleTableChange}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div id="tablepagination" className="dataTables_wrapper" />
+
+              <div className="header-right-actions">
+                <div className="search-and-range">
+                  <Input
+                    placeholder="Search"
+                    prefix={<SearchOutlined />}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    allowClear
+                    className="nyl-search"
+                    style={{ width: 280 }}
+                  />
+                  <RangePicker className="nyl-range" />
                 </div>
               </div>
             </div>
-          </div>
-          {/* /Page Wrapper */}
-          {/* Delete Modal */}
-          <div
-            className="modal fade"
-            id="delete_modal"
-            aria-hidden="true"
-            role="dialog"
-          >
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content">
-                <div className="modal-body">
-                  <div className="form-content p-2">
-                    <h4 className="modal-title">Delete</h4>
-                    <p className="mb-4">Are you sure want to delete?</p>
-                    <button type="button" className="btn btn-primary mx-1">
-                      Save{" "}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+            <div className="card nyl-card">
+              <Table
+                columns={columns}
+                dataSource={filteredData}
+                pagination={{
+                  total: filteredData.length,
+                  showSizeChanger: true,
+                  pageSizeOptions: ["5", "10", "20"],
+                }}
+                rowClassName={() => "nyl-table-row"}
+                className="payment-table nyl-payment-table"
+              />
             </div>
           </div>
-          {/* /Delete Modal */}
-        </>
-      </>
+        </div>
+      </div>
     </>
   );
 };

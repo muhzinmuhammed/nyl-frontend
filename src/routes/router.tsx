@@ -1,10 +1,11 @@
 
 import {  Route, Routes } from "react-router";
-import { authRoutes, publicRoutes, adminRoutes, pharmacyAdminRoutes} from "./router.link";
+import { authRoutes, publicRoutes, adminRoutes, pharmacyAdminRoutes, receptionistRoutes} from "./router.link";
 import Feature from "./feature";
 import AuthFeature from "./authFeature";
 import AdminFeature from "./adminFeature";
 import PharmacyAdminFeature from "./pharmacyadminFeature";
+import ReceptionFeature from "./receptioFeature";
 
 
 
@@ -26,6 +27,12 @@ const ALLRoutes: React.FC = () => {
 
         <Route element={<AdminFeature />}>
           {adminRoutes.map((route, idx) => (
+            <Route path={route.path} element={route.element} key={idx} />
+          ))}
+        </Route>
+
+        <Route element={<ReceptionFeature />}>
+          {receptionistRoutes.map((route, idx) => (
             <Route path={route.path} element={route.element} key={idx} />
           ))}
         </Route>

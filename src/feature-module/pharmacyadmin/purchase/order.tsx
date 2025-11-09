@@ -1,284 +1,182 @@
-import React  from "react";
+import React, { useState } from "react";
+import { Table, Input, DatePicker, Button } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { SearchOutlined } from "@ant-design/icons";
 import SidebarNav from "../sidebar";
-import { Trash2 } from "react-feather";
-// import FeatherIcon from 'feather-icons-react';
-import { Link } from "react-router-dom";
-import { Table } from "antd";
-import {
-  itemRender,
-  onShowSizeChange,
-} from "../paginationfunction";
 import Header from "../header";
+import { Link } from "react-router-dom";
+import "./PharmacyAdminOrders.css";
+
+const { RangePicker } = DatePicker;
+
+interface PaymentData {
+  key: number;
+  clientId: string;
+  clientName: string;
+  avatar: string;
+  appointmentTime: string;
+  modeOfSession?: string;
+  amount: string;
+  sessionDetails: string;
+  payment_mode: string;
+}
+
 const PharmacyAdminOrders: React.FC = () => {
-  const data = [
+  const [searchText, setSearchText] = useState("");
+
+  const data: PaymentData[] = [
     {
-      ID: "1",
-      SupplierID: 256,
-      SupplierName: "Douglas Meyer",
-      Orderby: "Trinity General Hospital",
-      Addorder: "10-5-2020",
-      Orderlist: "Dolofin Antigripal(Dolo)  3",
+      key: 1,
+      clientId: "#NYL457",
+      clientName: "John Doe",
+      payment_mode: "Cash",
+      avatar: "patient1",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹520",
+      sessionDetails: "View details",
     },
     {
-      ID: "2",
-      SupplierID: 20,
-      SupplierName: "Tyler Robinson",
-      Orderby: "Grand Valley Clinic",
-      Addorder: "10-5-2020",
-      Orderlist: "Dolofin Antigripal(Dolo)  50",
-      bg: "Dolofin Antigripal(Dolo)  4",
+      key: 2,
+      clientId: "#NYL493",
+      clientName: "Michel",
+      avatar: "patient2",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹1541",
+      sessionDetails: "View details",
+      payment_mode: "Cash",
     },
     {
-      ID: "3",
-      SupplierID: 15,
-      SupplierName: "Mary Dixon",
-      Orderby: "Grand Plains Clinic",
-      Addorder: "10-5-2020",
-      Orderlist: "Dolo 650(CIpla)  0",
+      key: 3,
+      clientId: "#NYL457",
+      clientName: "John Doe",
+      avatar: "patient3",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹520",
+      sessionDetails: "View details",
+      payment_mode: "Cash",
     },
     {
-      ID: "4",
-      SupplierID: 156,
-      SupplierName: "Kurt Wooten",
-      Orderby: "Mercy Vale Clinic",
-      Addorder: "10-5-2020",
-      Orderlist: "Tektonik(None)  2",
-    },
-    {
-      ID: "5",
-      SupplierID: 23,
-      SupplierName: "Vickie Pritchett",
-      Orderby: "Kindred Soul Clinic",
-      Addorder: "10-5-2020",
-      Orderlist: "Dolofin Antigripal(Dolo)  4",
-    },
-    {
-      ID: "6",
-      SupplierID: 35,
-      SupplierName: "Joanne Fry",
-      Orderby: "Hope Haven Hospital",
-      Addorder: "10-5-2020",
-      Orderlist: "Dolo 650(CIpla)  0",
-    },
-    {
-      ID: "7",
-      SupplierID: 205,
-      SupplierName: "Christopher Johnson",
-      Orderby: "Hill Crest Clinic",
-      Addorder: "10-5-2020",
-      Orderlist: "Dolofin Antigripal(Dolo)  50",
-      bg: "Dolofin Antigripal(Dolo)  4",
+      key: 4,
+      clientId: "#NYL493",
+      clientName: "Michel",
+      avatar: "patient4",
+      appointmentTime: "5 Nov 2019\n11:00 AM - 11:35 AM",
+      modeOfSession: "Direct healing",
+      amount: "₹1541",
+      sessionDetails: "View details",
+      payment_mode: "Cash",
     },
   ];
 
-  const columns = [
+  const columns: ColumnsType<PaymentData> = [
     {
-      title: "#",
-      dataIndex: "ID",
-      render: (text: any) => (
-        <>
-          <td>
-            <span>{text}</span>
-          </td>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.ID.length - b.ID.length,
-    },
-
-    {
-      title: "SupplierID",
-      dataIndex: "SupplierID",
-      render: (text: any) => (
-        <>
-          <span>{text}</span>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.SupplierID.length - b.SupplierID.length,
-    },
-    {
-      title: "SupplierName",
-      dataIndex: "SupplierName",
-      render: (text: any) => (
-        <>
-          <span>{text}</span>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.SupplierName.length - b.SupplierName.length,
-    },
-
-    {
-      title: "Orderby",
-      dataIndex: "Orderby",
-      render: (text: any) => (
-        <>
-          <span>{text}</span>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.Orderby.length - b.Orderby.length,
-    },
-    {
-      title: "Addorder",
-      dataIndex: "Addorder",
-      render: (text: any) => (
-        <>
-          {/* <span className={record.bg}>{text}</span> */}
-          <span>{text}</span>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.Addorder.length - b.Addorder.length,
-    },
-    {
-      title: "Orderlist",
-      dataIndex: "Orderlist",
-      render: (text: any, record: any) => (
-        <>
-          <td>
-            <span className={record.bg}>{text}</span>
-          </td>
-        </>
-      ),
-      sorter: (a: any, b: any) => a.Orderlist.length - b.Orderlist.length,
-    },
-    {
-      title: "Action",
-      className: "text-end",
-      dataIndex: "",
-      render: () => (
-        <div className="text-end">
-          <Link
-            to="#"
-            className="me-1 btn btn-sm bg-danger-light"
-            data-bs-toggle="modal"
-            data-bs-target="#deleteConfirmModal"
-          >
-            <Trash2 size={16} /> Delete
-          </Link>
+      title: "Patient name",
+      dataIndex: "clientName",
+      key: "clientName",
+      render: (text, record) => (
+        <div className="client-cell-left">
+          <img src={record.avatar} alt={text} className="client-avatar" />
+          <div className="client-meta">
+            <div className="client-name">{text}</div>
+            <div className="client-id">{record.clientId}</div>
+          </div>
         </div>
       ),
-      sorter: (a: any, b: any) => a.length - b.length,
+    },
+    {
+      title: "Appointment Time",
+      dataIndex: "appointmentTime",
+      key: "appointmentTime",
+      render: (text: string) => {
+        const [date, time] = text.split("\n");
+        return (
+          <div className="appointment-col">
+            <div className="appt-date">{date}</div>
+            <div className="appt-time">{time}</div>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Booking details",
+      dataIndex: "sessionDetails",
+      key: "sessionDetails",
+      render: (text) => (
+        <Link to="#" className="view-details">
+          {text}
+        </Link>
+      ),
+    },
+    {
+      title: "Payment mode",
+      dataIndex: "payment_mode",
+      key: "payment_mode",
+      render: (text) => <span className="pill payment-pill">{text}</span>,
+      align: "center",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+      render: (text) => <div className="amount-cell">{text}</div>,
+      align: "right",
     },
   ];
+
+  const filteredData = data.filter((item) =>
+    item.clientName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <>
-    <Header location={{ pathname: "dashboard" }} />
-      <SidebarNav />
-      <>
-        {/* Page Wrapper */}
-        <div className="page-wrapper">
+      <Header />
+      <div className="nyl-layout">
+        <SidebarNav />
+        <div className="page-wrapper nyl-page">
           <div className="content container-fluid">
-            {/* Page Header */}
-            <div className="page-header">
-              <div className="row">
-                <div className="col-12">
-                  <h3 className="page-title">Order</h3>
-                  <ul className="breadcrumb">
-                    <li className="breadcrumb-item">
-                      <Link to="/pharmacyadmin">Dashboard</Link>
-                    </li>
-                    <li className="breadcrumb-item active">Order </li>
-                  </ul>
+            <div className="page-header nyl-page-header">
+              <div className="page-header-left">
+                <div>
+                  <h3 className="page-title nyl-title">Booking History</h3>
+                  <p className="breadcrumb nyl-breadcrumb">Dashboard / Booking History</p>
+                </div>
+              </div>
+
+              <div className="header-right-actions">
+                <div className="search-and-range">
+                  <Input
+                    placeholder="Search"
+                    prefix={<SearchOutlined />}
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    allowClear
+                    className="nyl-search"
+                    style={{ width: 280 }}
+                  />
+                  <RangePicker className="nyl-range" />
                 </div>
               </div>
             </div>
-            {/* /Page Header */}
-            <div className="row">
-              <div className="col-md-12">
-                {/* Recent Orders */}
-                <div className="card">
-                  <div className="card-header border-bottom-0">
-                    <div className="row align-items-center">
-                      <div className="col-auto custom-list d-flex">
-                        <div className="form-custom me-2">
-                          <div
-                            id="tableSearch"
-                            className="dataTables_wrapper"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="card-body p-0">
-                    <div className="table-responsive">
-                      <Table
-                        pagination={{
-                          total: data.length,
-                          showTotal: (total, range) =>
-                            `Showing ${range[0]} to ${range[1]} of ${total} entries`,
-                          showSizeChanger: true,
-                          onShowSizeChange: onShowSizeChange,
-                          itemRender: itemRender,
-                        }}
-                        style={{ overflowX: "auto" }}
-                        columns={columns}
-                        dataSource={data}
-                        rowKey={(record) => record.ID}
-                        //  onChange={this.handleTableChange}
-                      />
-                      {/* <DataTableExtensions
-                        {...tableData}
-                      >
-                        <DataTable
 
-                          noHeader
-
-                          defaultSortField="id"
-                          defaultSortAsc={false}
-                          pagination
-                          highlightOnHover
-                        />
-                      </DataTableExtensions> */}
-                    </div>
-                  </div>
-                </div>
-                <div id="tablepagination" className="dataTables_wrapper" />
-                {/* /Recent Orders */}
-              </div>
+            <div className="card nyl-card">
+              <Table
+                columns={columns}
+                dataSource={filteredData}
+                pagination={{
+                  total: filteredData.length,
+                  showSizeChanger: true,
+                  pageSizeOptions: ["5", "10", "20"],
+                }}
+                rowClassName={() => "nyl-table-row"}
+                className="payment-table nyl-payment-table"
+              />
             </div>
           </div>
         </div>
-        {/* /Page Wrapper */}
-        {/* <!-- Delete Modal --> */}
-        <div
-          className="modal fade"
-          id="deleteConfirmModal"
-          tabIndex={-1}
-          role="dialog"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="acc_title">
-                  Delete
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                />
-              </div>
-              <div className="modal-body">
-                <p id="acc_msg">are you sure you want to delete?</p>
-              </div>
-              <div className="modal-footer">
-                <Link to="#" className="btn btn-success si_accept_confirm">
-                  Yes
-                </Link>
-                <button
-                  type="button"
-                  className="btn btn-danger si_accept_cancel"
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- /Delete Modal --> */}
-      </>
+      </div>
     </>
   );
 };

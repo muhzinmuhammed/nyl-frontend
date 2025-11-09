@@ -194,14 +194,3 @@ body.mini-sidebar.expand-menu .modern-sidebar #sidebar-menu ul li a svg {
   justify-content: center;
   margin: 0 auto 10px;
 }
-
-/* Hide support card when sidebar is collapsed */
-body.mini-sidebar .support-card {
-  display: none;
-}
-
-/* Optional: add smooth transition when showing */
-.support-card {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
