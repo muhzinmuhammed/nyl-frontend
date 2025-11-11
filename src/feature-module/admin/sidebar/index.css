@@ -49,8 +49,16 @@
   flex-shrink: 0;
 }
 
-.modern-sidebar #sidebar-menu ul li a span {
+.modern-sidebar #sidebar-menu ul li span {
   flex: 1;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.modern-sidebar #sidebar-menu ul li.active span {
+  flex: 1;
+  font-size: 15px;
+  color: #0E82FD;
 }
 
 /* Active menu item */
@@ -131,7 +139,7 @@ body.mini-sidebar.expand-menu .modern-sidebar #sidebar-menu ul li a svg {
 }
 
 /* Submenu styling (if needed) */
-.modern-sidebar #sidebar-menu ul li.submenu > a .menu-arrow {
+.modern-sidebar #sidebar-menu ul li.submenu>a .menu-arrow {
   margin-left: auto;
 }
 
@@ -204,4 +212,3 @@ body.mini-sidebar .support-card {
 .support-card {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-

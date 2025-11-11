@@ -49,8 +49,15 @@
   flex-shrink: 0;
 }
 
-.modern-sidebar #sidebar-menu ul li a span {
+.modern-sidebar #sidebar-menu ul li  span {
   flex: 1;
+  font-size: 14px;
+  color: #ffffff;
+}
+.modern-sidebar #sidebar-menu ul li.active span {
+  flex: 1;
+  font-size: 15px;
+  color: #0E82FD;
 }
 
 /* Active menu item */

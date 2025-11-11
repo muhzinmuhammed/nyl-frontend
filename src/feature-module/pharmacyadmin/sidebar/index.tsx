@@ -56,7 +56,7 @@ const SidebarNav = () => {
         >
           <div className="sidebar-inner slimscroll">
             <div id="sidebar-menu" className="sidebar-menu">
-              <ul>
+              <ul >
                 <li className={pathname === "/pharmacyadmin" ? "active" : ""}>
                   <Link to="/pharmacyadmin">
                     <Home size={18} />
@@ -83,7 +83,7 @@ const SidebarNav = () => {
                   }
                 >
                   <Link to="/pharmacyadmin/transactions-list">
-                    <Activity size={18} /> <span>Payments</span>
+                    <Activity size={18} /> <span >Payments</span>
                   </Link>
                 </li>
                 {/* <li className={pathname?.includes("client") ? "active" : ""}>
@@ -93,12 +93,12 @@ const SidebarNav = () => {
                 </li> */}
                 <li className={pathname?.includes("order") ? "active" : ""}>
                   <Link to="/pharmacyadmin/order">
-                    <Star size={18} /> <span>Booking History</span>
+                    <Star size={18} /> <span >Booking History</span>
                   </Link>
                 </li>
                 <li className={pathname?.includes("profile") ? "active" : ""}>
                   <Link to="/pharmacyadmin/profile">
-                    <UserPlus size={18} /> <span>Profile</span>
+                    <UserPlus size={18} /> <span >Profile</span>
                   </Link>
                 </li>
                 {/* <li className={pathname?.includes("logout") ? "active" : ""}>
@@ -109,7 +109,7 @@ const SidebarNav = () => {
               </ul>
             </div>
 
-            {/* ✅ Support Card at the bottom */}
+            {/*  Support Card at the bottom */}
             <div className="support-card">
               <div className="support-content">
                 <div className="support-avatar">

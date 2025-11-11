@@ -44,9 +44,8 @@ const BookingTableRow = ({
     <td>
       <a
         href={paymentLink}
-        className={`btn btn-sm btn-success ${
-          status === "Open" ? "bg-success" : "bg-secondary"
-        }`}
+        className={`btn btn-sm btn-success ${status === "Cash" ? "bg-success" : "bg-secondary"
+          }`}
       >
         {status}
       </a>
@@ -64,21 +63,21 @@ const ReceptionDashboard = () => {
       name: "John Doe",
       time: "9 Nov 2019, 9:00 AM - 9:20 AM",
       amount: "₹120",
-      status: "Open",
+      status: "Cash",
     },
     {
       id: 2,
       name: "John Doe",
       time: "9 Nov 2019, 9:20 AM - 9:40 AM",
       amount: "₹120",
-      status: "Open",
+      status: "Cash",
     },
     {
       id: 3,
       name: "John Doe",
       time: "9 Nov 2019, 9:40 AM - 10:00 AM",
       amount: "₹120",
-      status: "Open",
+      status: "Cash",
     },
   ];
 
@@ -95,7 +94,7 @@ const ReceptionDashboard = () => {
               <div className="col-sm-12">
                 <h3 className="page-title">Welcome Reception</h3>
                 <ul className="breadcrumb">
-                  <li className="breadcrumb-item active">Reception Overview</li>
+                  <li className="breadcrumb-item active">Dashboard</li>
                 </ul>
               </div>
             </div>
@@ -159,15 +158,15 @@ const ReceptionDashboard = () => {
                   <div className="table-responsive">
                     <table className="table table-hover table-center mb-0">
                       <thead>
-                        <tr>
+                        <tr className="text-center">
                           <th>Patient Name</th>
                           <th>Appointment Time</th>
                           <th>Booking details</th>
-                          <th>Payment status</th>
+                          <th>Payment Mode</th>
                           <th>Amount</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody className="text-center">
                         {todaysBookings.map((booking) => (
                           <BookingTableRow
                             key={booking.id}
@@ -291,7 +290,7 @@ const ReceptionDashboard = () => {
               <Button variant="secondary" onClick={() => setShowModal(false)}>
                 Cancel
               </Button>
-              <Button variant="primary">Save Booking</Button>
+              <Button style={{backgroundColor:'#0E82FD'}} >Save Booking</Button>
             </Modal.Footer>
           </Modal>
         </div>

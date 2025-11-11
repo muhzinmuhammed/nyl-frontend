@@ -11,7 +11,7 @@ import {
   User,
   Star,
   Activity,
-  FileText,
+  Settings,
 } from "react-feather";
 import "./index.css";
 
@@ -98,7 +98,7 @@ const SidebarNav = () => {
                 </li>
                 <li className={pathname?.includes("profile") ? "active" : ""}>
                   <Link to="/admin/profile">
-                    <UserPlus size={18} /> <span>Profile</span>
+                    <Settings size={18} /> <span>Profile</span>
                   </Link>
                 </li>
                 {/* <li className={pathname?.includes("logout") ? "active" : ""}>
@@ -109,8 +109,8 @@ const SidebarNav = () => {
               </ul>
             </div>
 
-            {/* ✅ Support Card at the bottom */}
-            <div className="support-card">
+            {/*  Support Card at the bottom */}
+            <div style={{marginBottom:'20px'}} className="support-card">
               <div className="support-content">
                 <div className="support-avatar">
                   <i className="feather feather-user"></i>

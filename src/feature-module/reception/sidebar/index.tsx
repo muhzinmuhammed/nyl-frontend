@@ -109,7 +109,7 @@ const SidebarNav = () => {
               </ul>
             </div>
 
-            {/* ✅ Support Card at the bottom */}
+            {/*  Support Card at the bottom */}
             <div className="support-card">
               <div className="support-content">
                 <div className="support-avatar">
