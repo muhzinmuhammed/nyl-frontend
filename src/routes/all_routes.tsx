@@ -13,7 +13,7 @@ signup: "/signup",
 register: "/register",   
 emailOtp: "/email-otp",   
 
-generalHomeOne: "/index",
+generalHomeOne: "/",
 home1: "/home-1",
 home2: "/home-2",
 home3: "/home-3",

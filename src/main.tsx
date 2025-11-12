@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import ALLRoutes from './routes/router'
 import store from './core/redux/store'
 import { base_path } from './environment'
-
+import './assets/css/overrides.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
@@ -22,7 +22,7 @@ if (window.location.pathname.includes("admin")) {
   // Admin-specific styles
   import('./assets/admin/assets/css/feathericon.min.css');
   import('./assets/admin/assets/scss/main.scss');
-}else if (window.location.pathname.includes("pharmacyadmin")) {
+} else if (window.location.pathname.includes("pharmacyadmin")) {
   import("./assets/pharmacyadmin/assets/css/custom.css");
   import("./assets/pharmacyadmin/assets/scss/main.scss");
 } else {

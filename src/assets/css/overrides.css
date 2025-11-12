@@ -1,0 +1,139 @@
+:root {
+  --nyl-primary-blue-color: rgba(14, 130, 253, 1);
+  --nyl-dark-color: rgba(0, 0, 0, 1);
+  --auth-section-bg-color: rgba(249, 249, 249, 1);
+}
+
+/*
+ * =========================================
+ *  NAVBAR
+ * =========================================
+ */
+
+.header-custom .main-nav > li.active > a,
+.header-custom .main-nav > li > a:hover {
+  color: var(--nyl-primary-blue-color) !important;
+}
+
+/* 
+ * ---  DESKTOP BUTTON  --- 
+ */
+@media (min-width: 992px) {
+  .header-custom .header-menu .main-menu-wrapper .main-nav > li.nav-item-btn {
+    margin-left: auto !important; 
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important; 
+  }
+
+  .header-custom .header-menu .main-menu-wrapper .main-nav > li.nav-item-btn > a {
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .header-custom .header-menu .main-menu-wrapper .main-nav > li.nav-item-btn .btn-nyl {
+    padding: 0.45rem 1rem !important;
+    font-size: 0.9rem !important;
+    width: auto !important;
+    line-height: normal !important;
+    border-radius: 0.4rem !important;
+    height: auto !important;
+  }
+
+  .header-custom .main-nav > li > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+/* 
+ * --- MOBILE SIDEBAR  --- 
+ */
+@media (max-width: 991.98px) {
+  .menu-opened .main-menu-wrapper {
+    background: #ffffff !important;
+  }
+
+  .menu-opened .main-nav > li > a {
+    color: #333333 !important;
+    border-color: #f0f0f0 !important;
+  }
+
+  .menu-opened .main-nav > li.active > a {
+    color: var(--nyl-primary-blue-color) !important;
+  }
+
+  .menu-opened .main-nav > li.nav-item-btn {
+    margin-left: 0 !important;
+    padding: 10px 15px !important;
+    text-align: center !important;
+  }
+
+  .menu-opened .main-nav > li.nav-item-btn > a {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .menu-opened .main-nav > li.nav-item-btn .btn-nyl {
+    width: 100% !important;
+  }
+}
+
+/*
+ * =========================================
+ * BUTTON STYLES
+ * =========================================
+ */
+
+/* BLUE BUTTON */
+.btn-nyl {
+  background-color: var(--nyl-primary-blue-color);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(14, 130, 253, 0.25);
+}
+
+.btn-nyl.w-100 {
+  width: 100%;
+}
+
+.btn-nyl:hover {
+  background-color: var(--nyl-primary-blue-color);
+  color: #fff;
+  opacity: 0.9;
+  box-shadow: 0 6px 20px rgba(14, 130, 253, 0.4);
+}
+
+/* BLACK BUTTON */
+.btn-nyl.btn-nyl-dark {
+  background-color: var(--nyl-dark-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-nyl.btn-nyl-dark:hover {
+  background-color: var(--nyl-dark-color);
+  opacity: 0.9;
+}
+
+
+
+/*
+ * OTP SECTION
+ */
+.otp-box .p-inputotp-input {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  font-size: 1.2rem !important;
+  margin: 0 3px !important;
+}
