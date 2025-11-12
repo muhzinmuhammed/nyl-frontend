@@ -1,4 +1,4 @@
-import {  Route } from "react-router";
+import { Route } from "react-router";
 import { all_routes } from "./all_routes";
 import Login from "../pages/auth/LoginPage";
 import LoginEmail from "../feature-module/frontend/Authentication/login/login-email";
@@ -186,11 +186,12 @@ import PharmacyAdminReportInvoice from "../feature-module/pharmacyadmin/report/R
 import PharmacyAdminSettings from "../feature-module/pharmacyadmin/settings";
 import AdminClient from "../feature-module/admin/customers";
 import ReceptionDashBoard from "../feature-module/reception/dashboard";
+import AdminPatientsTable from "../feature-module/admin/patients/AdminHealingTable";
 
 
 const route = all_routes
 export const publicRoutes = [
-  
+
   {
     path: route.generalHomeOne,
     element: <GeneralHomeOne />,
@@ -1032,15 +1033,20 @@ export const adminRoutes = [
   },
   {
     id: "28",
-    path:route.adminHealing,
-    element:<AdminHealing />,
+    path: route.adminHealing,
+    element: <AdminHealing />,
   },
   {
     id: "29",
-    path:route.adminClinetList,
-    element:<AdminClient />,
+    path: route.adminClinetList,
+    element: <AdminClient />,
+  }, {
+    id: '30',
+    path: route.adminPatientTable,
+    element: <AdminPatientsTable />
+
   }
-  
+
 ]
 
 export const pharmacyAdminRoutes = [
@@ -1048,102 +1054,102 @@ export const pharmacyAdminRoutes = [
     id: "1",
     path: route.pharmacyAdminDashboard,
     element: <PharmacyAdminDashboard />,
-  },  
+  },
   {
     id: "2",
     path: route.pharmacyAdminProducts,
     element: <PharmacyAdminProductName />,
-  },  
+  },
   {
     id: "3",
     path: route.pharmacyAdminAddProducts,
     element: <PharmacyAdminAddProduct />,
-  },  
+  },
   {
     id: "4",
     path: route.pharmacyAdminEditProducts,
     element: <PharmacyAdminEditProduct />,
-  },  
+  },
   {
     id: "5",
     path: route.pharmacyAdminOutstock,
     element: <PharmacyAdminOutstock />,
-  },  
+  },
   {
     id: "6",
     path: route.pharmacyAdminExpired,
     element: <PharmacyAdminExpired />,
-  },  
+  },
   {
     id: "7",
     path: route.pharmacyAdminCategories,
     element: <PharmacyAdminCategories />,
-  },  
+  },
   {
     id: "8",
     path: route.pharmacyAdminpurchase,
     element: <PharmacyAdminPurchase />,
-  },  
+  },
   {
     id: "9",
     path: route.pharmacyAdminAddPurchase,
     element: <PharmacyAdminAddPurchase />,
-  },  
+  },
   {
     id: "10",
     path: route.pharmacyAdminEditPurchase,
     element: <PharmacyAdminEditPurchase />,
-  },  
+  },
   {
     id: "11",
     path: route.pharmacyAdminOrder,
     element: <PharmacyAdminOrders />,
-  },  
+  },
   {
     id: "12",
     path: route.pharmacyAdminSales,
     element: <PharmacyAdminSales />,
-  },  
+  },
   {
     id: "13",
     path: route.pharmacyAdminSupplier,
     element: <PharmacyAdminSupplier />,
-  },  
+  },
   {
     id: "13",
     path: route.pharmacyAdminAddSupplier,
     element: <PharmacyAdminAddSupplier />,
-  },  
+  },
   {
     id: "14",
     path: route.pharmacyAdminEditSupplier,
     element: <PharmacyAdminEditSupplier />,
-  },  
+  },
   {
     id: "15",
     path: route.pharmacyAdminTransactionsList,
     element: <PharmacyAdminTransactionList />,
-  },  
+  },
   {
     id: "16",
     path: route.pharmacyAdminInvoiceReport,
     element: <PharmacyAdminInvoiceList />,
-  },  
+  },
   {
     id: "17",
     path: route.pharmacyAdminReportInvoice,
     element: <PharmacyAdminReportInvoice />,
-  },  
+  },
   {
     id: "18",
     path: route.pharmacyAdminProfile,
     element: <PharmacyAdminReportInvoice />,
-  },  
+  },
   {
     id: "19",
     path: route.pharmacyAdminSettings,
     element: <PharmacyAdminSettings />,
-  },  
+  },
 
 ]
 

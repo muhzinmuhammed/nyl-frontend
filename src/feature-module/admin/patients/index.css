@@ -1,0 +1,89 @@
+.admin-patients-wrapper {
+  background-color: #f9fafc;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+/* PAGE TITLE */
+.page-title {
+  font-weight: 600;
+  font-size: 24px;
+  color: #111827;
+}
+
+.page-subtitle {
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* CARD COMMON */
+.card {
+  border-radius: 14px;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* Emergency Healing Card */
+.emergency-card {
+  background-color: #00b04f;
+  color: #ffffff;
+}
+
+.emergency-card .count {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.emergency-card .view-details {
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+/* Sessions Today Card */
+.session-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.session-card .count {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.session-card h5 {
+  color: #333333;
+  font-weight: 600;
+}
+
+.session-date {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* Assigned Sessions */
+.assigned-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.assigned-card h5 {
+  font-weight: 600;
+  color: #111827;
+}
+
+.assigned-card .btn {
+  font-weight: 500;
+  border-radius: 8px;
+}
