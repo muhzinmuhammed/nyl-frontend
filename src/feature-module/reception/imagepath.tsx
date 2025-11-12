@@ -1,6 +1,6 @@
 export { default as logo} from '../../assets/admin/assets/img/logo.png';
 export { default as logoWhite} from '../../assets/admin/assets/img/logo-white.png';
-export { default as logoSmall} from '../../assets/admin/assets/img/logo-small.png';
+export { default as logoSmall} from '../../assets/admin/assets/img/logo-small.jpeg';
 export { default as favicon} from '../../assets/admin/assets/img/favicon.png';
 export { default as avatar01} from '../../assets/admin/assets/img/profiles/avatar-01.jpg';
 export { default as avatar07} from '../../assets/admin/assets/img/profiles/avatar-07.jpg';

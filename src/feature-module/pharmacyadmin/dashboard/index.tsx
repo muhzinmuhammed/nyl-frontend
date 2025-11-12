@@ -1,204 +1,189 @@
 import React, { useState } from "react";
 import SidebarNav from "../sidebar";
-import Header from "../header/index";
+import Header from "../header";
 import { Modal, Button, Form } from "react-bootstrap";
+import { dashboardHand, clockImage } from "../imagepath";
 
-const BookingSummaryCard = ({ title, count, linkText, linkHref }) => (
-  <div className="card-body">
-    <h4 className="card-title mb-3">{title}</h4>
-    <div className="d-flex justify-content-between align-items-center">
-      <h3>{count}</h3>
-      <a href={linkHref} className="text-muted small">
-        {linkText}
-      </a>
+interface BookingSummaryCardProps {
+  title: string;
+  count: string | number;
+  linkText: string;
+  linkHref: string;
+  icon?: string;
+}
+
+const BookingSummaryCard: React.FC<BookingSummaryCardProps> = ({
+  title,
+  count,
+  linkText,
+  linkHref,
+  icon,
+}) => (
+  <div className="card shadow-sm border-0 rounded-3">
+    <div className="card-body d-flex justify-content-between align-items-center">
+      <div>
+        <h6 className="text-muted mb-2">{title}</h6>
+        <h3 className="fw-bold">{count}</h3>
+        <a href={linkHref} className="small text-primary text-decoration-none">
+          {linkText} →
+        </a>
+      </div>
+      {icon && <img src={icon} alt="icon" width="40" />}
     </div>
   </div>
 );
 
-const BookingTableRow = ({
-  patientName,
+interface Booking {
+  id: number;
+  name: string;
+  time: string;
+  amount: string;
+  status: string;
+  avatar?: string;
+}
+
+const BookingTableRow: React.FC<Booking> = ({
+  name,
   time,
-  detailsLink,
-  paymentLink,
   amount,
   status,
 }) => (
   <tr>
-    <td>
+    <td className="align-middle text-start">
       <div className="d-flex align-items-center">
         <div
-          className="avatar-sm me-3 bg-secondary rounded-circle"
-          style={{ width: "30px", height: "30px" }}
+          className="rounded-circle bg-light me-3"
+          style={{ width: "35px", height: "35px" }}
         ></div>
-        <h2 className="table-avatar">
-          <a href="#">{patientName}</a>
-        </h2>
+        <strong>{name}</strong>
       </div>
     </td>
-    <td>{time}</td>
-    <td>
-      <a href={detailsLink} className="btn btn-sm btn-outline-info">
+    <td className="align-middle">{time}</td>
+    <td className="align-middle">
+      <Button variant="outline-primary" size="sm">
         View details
-      </a>
+      </Button>
     </td>
-    <td>
-      <a
-        href={paymentLink}
-        className={`btn btn-sm btn-success ${status === "Cash" ? "bg-success" : "bg-secondary"
+    <td className="align-middle">
+      <span
+        className={`badge rounded-pill ${status === "Cash" ? "bg-success" : "bg-secondary"
           }`}
       >
         {status}
-      </a>
+      </span>
     </td>
-    <td>{amount}</td>
+    <td className="align-middle fw-semibold">{amount}</td>
   </tr>
 );
 
-const ReceptionDashboard = () => {
+const ReceptionDashboard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const todaysBookings = [
+  const todaysBookings: Booking[] = [
     {
       id: 1,
       name: "John Doe",
-      time: "9 Nov 2019, 9:00 AM - 9:20 AM",
-      amount: "₹120",
+      time: "5 Nov 2025, 11:00 AM - 11:35 AM",
+      amount: "₹520",
       status: "Cash",
     },
     {
       id: 2,
       name: "John Doe",
-      time: "9 Nov 2019, 9:20 AM - 9:40 AM",
-      amount: "₹120",
+      time: "5 Nov 2025, 11:00 AM - 11:35 AM",
+      amount: "₹520",
       status: "Cash",
     },
     {
       id: 3,
       name: "John Doe",
-      time: "9 Nov 2019, 9:40 AM - 10:00 AM",
-      amount: "₹120",
+      time: "5 Nov 2025, 11:00 AM - 11:35 AM",
+      amount: "₹520",
       status: "Cash",
     },
   ];
 
   return (
-    <>
-      <div className="page-wrapper">
+    <div className="page-wrapper d-flex">
+      <SidebarNav />
+      <div className="flex-grow-1">
         <Header location={{ pathname: "reception-overview" }} />
-        <SidebarNav />
 
-        <div className="content container-fluid">
-          {/* Page Header */}
-          <div className="page-header">
-            <div className="row">
-              <div className="col-sm-12">
-                <h3 className="page-title">Welcome Reception</h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item active">Dashboard</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div className="content container-fluid py-4">
+          <h4 className="fw-bold mb-3">Welcome Reception</h4>
+          <p className="text-muted">Dashboard</p>
 
           {/* Cards */}
-          <div className="row">
-            <div className="col-lg-6 col-md-12">
-              <div className="card">
-                <BookingSummaryCard
-                  title="Bookings Today"
-                  count="6"
-                  linkText="View details"
-                  linkHref="/booking-history"
-                />
-              </div>
+          <div className="row mb-4">
+            <div className="col-md-6">
+              <BookingSummaryCard
+                title="Bookings Today"
+                count="6"
+                linkText="View details"
+                linkHref="/booking-history"
+                icon={dashboardHand}
+              />
             </div>
-            <div className="col-lg-6 col-md-12">
-              <div className="card">
-                <BookingSummaryCard
-                  title="Booking History"
-                  count="12 Nov 2025"
-                  linkText="View details"
-                  linkHref="/booking-history"
+            <div className="col-md-6">
+              <BookingSummaryCard
+                title="Booking History"
+                count="12 Nov 2025"
+                linkText="View details"
+                linkHref="/booking-history"
+                icon={clockImage}
+              />
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="card border-0 shadow-sm rounded-3">
+            <div className="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+              <h5 className="mb-0 fw-semibold">Today's Booking</h5>
+              <Button variant="dark" onClick={() => setShowModal(true)}>
+                + New Booking
+              </Button>
+            </div>
+            <div className="card-body">
+              <div className="d-flex justify-content-between mb-3">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="form-control w-50"
                 />
+                <Button variant="outline-secondary" size="sm">
+                  <i className="feather-filter me-1"></i> Filter
+                </Button>
+              </div>
+
+              <div className="table-responsive">
+                <table className="table table-hover  align-middle text-center">
+                  <thead className="table-light">
+                    <tr>
+                      <th>Patient Name</th>
+                      <th>Appointment Time</th>
+                      <th>Booking details</th>
+                      <th>Payment Mode</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {todaysBookings.map((booking) => (
+                      <BookingTableRow key={booking.id} {...booking} />
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
 
-          {/* Table Section */}
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card">
-                <div className="card-header d-flex justify-content-between align-items-center">
-                  <h4 className="card-title">Today's Booking</h4>
-                  <button
-                    className="btn btn-dark"
-                    type="button"
-                    onClick={() => setShowModal(true)}
-                  >
-                    + New Booking
-                  </button>
-                </div>
-                <div className="card-body">
-                  <div className="d-flex justify-content-between mb-3">
-                    <div className="search-box">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search"
-                      />
-                    </div>
-                    <button
-                      className="btn btn-outline-secondary btn-sm"
-                      type="button"
-                    >
-                      <i className="feather feather-filter me-1"></i> Filter
-                    </button>
-                  </div>
-
-                  <div className="table-responsive">
-                    <table className="table table-hover table-center mb-0">
-                      <thead>
-                        <tr className="text-center">
-                          <th>Patient Name</th>
-                          <th>Appointment Time</th>
-                          <th>Booking details</th>
-                          <th>Payment Mode</th>
-                          <th>Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody className="text-center">
-                        {todaysBookings.map((booking) => (
-                          <BookingTableRow
-                            key={booking.id}
-                            patientName={booking.name}
-                            time={booking.time}
-                            detailsLink={`/booking/${booking.id}`}
-                            paymentLink={`/payment/${booking.id}`}
-                            amount={booking.amount}
-                            status={booking.status}
-                          />
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Modal */}
-          <Modal
-            show={showModal}
-            onHide={() => setShowModal(false)}
-            size="lg"
-            centered
-          >
+          {/* New Booking Modal */}
+          <Modal style={{ left: 100 }} show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
             <Modal.Header closeButton>
               <Modal.Title>New Booking</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <div className="row">
+                <div className="row g-3">
                   <div className="col-md-4">
                     <Form.Group>
                       <Form.Label>Patient Name</Form.Label>
@@ -218,19 +203,19 @@ const ReceptionDashboard = () => {
                     </Form.Group>
                   </div>
 
-                  <div className="col-md-6 mt-3">
+                  <div className="col-md-6">
                     <Form.Group>
                       <Form.Label>Address</Form.Label>
                       <Form.Control type="text" placeholder="Enter address" />
                     </Form.Group>
                   </div>
-                  <div className="col-md-3 mt-3">
+                  <div className="col-md-3">
                     <Form.Group>
                       <Form.Label>Disease</Form.Label>
                       <Form.Control type="text" placeholder="Enter disease" />
                     </Form.Group>
                   </div>
-                  <div className="col-md-3 mt-3">
+                  <div className="col-md-3">
                     <Form.Group>
                       <Form.Label>Time Slot</Form.Label>
                       <Form.Select>
@@ -240,27 +225,26 @@ const ReceptionDashboard = () => {
                       </Form.Select>
                     </Form.Group>
                   </div>
-
-                  <div className="col-md-6 mt-3">
+                  <div className="col-md-6">
                     <Form.Group>
                       <Form.Label>Image</Form.Label>
-                      <Form.Control type="file" />
+                      <Form.Control type="file" placeholder="Enter disease" />
                     </Form.Group>
                   </div>
-                  <div className="col-md-6 mt-3">
+                  <div className="col-md-6">
                     <Form.Group>
                       <Form.Label>Medical Reports</Form.Label>
-                      <Form.Control type="file" />
+                      <Form.Control type="file" placeholder="Enter disease" />
                     </Form.Group>
                   </div>
                 </div>
 
-                <hr className="my-4" />
+                <hr />
 
                 <div className="row">
                   <div className="col-md-6">
                     <h6>Payment Info</h6>
-                    <ul className="list-unstyled">
+                    <ul className="list-unstyled small">
                       <li>Booking Fees: ₹500</li>
                       <li>Tax: ₹2</li>
                       <li>Discount: -₹100</li>
@@ -271,17 +255,8 @@ const ReceptionDashboard = () => {
                   </div>
                   <div className="col-md-6">
                     <h6>Payment Mode</h6>
-                    <Form.Check
-                      type="radio"
-                      label="Online Transaction"
-                      name="paymentMode"
-                      defaultChecked
-                    />
-                    <Form.Check
-                      type="radio"
-                      label="Cash"
-                      name="paymentMode"
-                    />
+                    <Form.Check type="radio" label="Online Transaction" name="paymentMode" />
+                    <Form.Check type="radio" label="Cash" name="paymentMode" />
                   </div>
                 </div>
               </Form>
@@ -290,12 +265,12 @@ const ReceptionDashboard = () => {
               <Button variant="secondary" onClick={() => setShowModal(false)}>
                 Cancel
               </Button>
-              <Button style={{backgroundColor:'#0E82FD'}} >Save Booking</Button>
+              <Button style={{ backgroundColor: "#0E82FD" }}>Save Booking</Button>
             </Modal.Footer>
           </Modal>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

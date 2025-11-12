@@ -7,7 +7,7 @@ import Header from "../header";
 import { Link } from "react-router-dom";
 import "./PharmacyAdminTransactionList.css";
 
-import {  logo } from "../imagepath";
+import { logo } from "../imagepath";
 
 const { RangePicker } = DatePicker;
 
@@ -139,41 +139,33 @@ const PharmacyAdminTransactionList: React.FC = () => {
         <SidebarNav />
         <div className="page-wrapper nyl-page">
           <div className="content container-fluid">
-            <div className="page-header nyl-page-header">
-              <div className="page-header-left">
-                <div>
-                  <h3 className="page-title nyl-title">Payments</h3>
-                  <p className="breadcrumb nyl-breadcrumb">Dashboard / Payments</p>
-                </div>
-              </div>
-
-              <div className="header-right-actions">
-                <div className="search-and-range">
-                  <Input
-                    placeholder="Search"
-                    prefix={<SearchOutlined />}
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    allowClear
-                    className="nyl-search"
-                    style={{ width: 280 }}
-                  />
-                  <RangePicker className="nyl-range" />
-                </div>
-              </div>
+            <div className="page-header">
+              <h3 className="page-title">Payments</h3>
+              <p className="breadcrumb">Dashboard / Payments</p>
             </div>
 
-            <div className="card nyl-card">
+            <div className="filter-bar d-flex justify-content-between align-items-center mb-3">
+              <Input
+                placeholder="Search"
+                prefix={<SearchOutlined />}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                style={{ width: 250 }}
+              />
+              <RangePicker />
+            </div>
+
+            <div className="card p-3">
               <Table
                 columns={columns}
-                dataSource={filteredData}
+                dataSource={data.filter((item) =>
+                  item.clientName.toLowerCase().includes(searchText.toLowerCase())
+                )}
                 pagination={{
-                  total: filteredData.length,
+                  total: data.length,
                   showSizeChanger: true,
-                  pageSizeOptions: ["5", "10", "20"],
                 }}
-                rowClassName={() => "nyl-table-row"}
-                className="payment-table nyl-payment-table"
+                className="payment-table"
               />
             </div>
           </div>

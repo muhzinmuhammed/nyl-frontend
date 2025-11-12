@@ -1,6 +1,6 @@
 
 export { default as logo } from "../../assets/pharmacyadmin/assets/img/logo.png";
-export { default as logoSmall } from "../../assets/pharmacyadmin/assets/img/logo-small.png";
+export { default as logoSmall } from "../../assets/pharmacyadmin/assets/img/logo-small.jpeg";
 export { default as avatar01 } from "../../assets/pharmacyadmin/assets/img/profiles/avatar-01.jpg";
 export { default as avatar07 } from "../../assets/pharmacyadmin/assets/img/profiles/avatar-07.jpg";
 export { default as avatar08 } from "../../assets/pharmacyadmin/assets/img/profiles/avatar-08.jpg";
@@ -25,3 +25,5 @@ export { default as product5 } from "../../assets/pharmacyadmin/assets/img/produ
 export { default as product6 } from "../../assets/pharmacyadmin/assets/img/product/product6.jpg";
 export { default as doctor_thumb_01 } from "../../assets/pharmacyadmin/assets/img/doctors/doctor-thumb-01.jpg";
 export { default as logowhite } from "../../assets/pharmacyadmin/assets/img/logo-white.png";
+export {default as dashboardHand} from  "../../assets/pharmacyadmin/assets/img/dashboard/hand.png"
+export {default as clockImage} from "../../assets/pharmacyadmin/assets/img/dashboard/clock.png"
