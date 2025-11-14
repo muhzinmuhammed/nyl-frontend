@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { Table, Input, DatePicker, Button } from "antd";
+import { Table, Input, DatePicker } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { SearchOutlined } from "@ant-design/icons";
 import SidebarNav from "../sidebar";
 import Header from "../header";
 import { Link } from "react-router-dom";
 import "./PharmacyAdminTransactionList.css";
-
-import { logo } from "../imagepath";
-
 const { RangePicker } = DatePicker;
 
 interface PaymentData {
@@ -128,9 +125,9 @@ const PharmacyAdminTransactionList: React.FC = () => {
     },
   ];
 
-  const filteredData = data.filter((item) =>
-    item.clientName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // const filteredData = data.filter((item) =>
+  //   item.clientName.toLowerCase().includes(searchText.toLowerCase())
+  // );
 
   return (
     <>

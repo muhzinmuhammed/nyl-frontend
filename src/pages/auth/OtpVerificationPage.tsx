@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { InputOtp } from 'primereact/inputotp';
 import ImageWithBasePath from '../../components/imageWithBasePath';
-import { all_routes } from '../../routes/all_routes';
+// import { all_routes } from '../../routes/all_routes';
 import Button from '../../common/Button';
 
 const OtpVerificationPage = () => {
   const [token, setTokens] = useState<string | number | null>(null);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
 
   const handleVerifyOtp = (e: React.FormEvent) => {
@@ -18,9 +18,9 @@ const OtpVerificationPage = () => {
     const from = location.state?.from;
 
     if (from === 'register') {
-      navigate(all_routes.newPassword);
+      // navigate(all_routes.newPassword);
     } else {
-      navigate(all_routes.resetPassword);
+      // navigate(all_routes.resetPassword);
     }
   };
 

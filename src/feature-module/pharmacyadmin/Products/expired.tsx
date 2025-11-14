@@ -215,7 +215,7 @@ const PharmacyAdminExpired: React.FC = () => {
 
   return (
     <>
-      <Header location={{ pathname: "dashboard" }} />
+      <Header />
       <SidebarNav />
       <div className="page-wrapper">
         <div className="content container-fluid">

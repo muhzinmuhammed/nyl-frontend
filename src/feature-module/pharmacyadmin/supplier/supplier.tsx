@@ -10,6 +10,7 @@ import {
 } from "../paginationfunction";
 import Header from "../header";
 import { Edit, Trash2, PlusSquare } from "react-feather";
+
 const PharmacyAdminSupplier: React.FC = () => {
   const data = [
     {
@@ -156,7 +157,7 @@ const PharmacyAdminSupplier: React.FC = () => {
 
   return (
     <>
-      <Header location={{ pathname: "dashboard" }} />
+      <Header  />
       <SidebarNav />
       <>
         {/* Page Wrapper */}

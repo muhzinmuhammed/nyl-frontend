@@ -1,17 +1,12 @@
-import { useState, useContext, useEffect } from "react";
+import { useState,  useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "overlayscrollbars/overlayscrollbars.css";
-import { Appcontext } from "../../admin/context/AppContext";
 import {
   Home,
-  Layout,
-  Users,
   UserPlus,
-  User,
   Star,
   Activity,
-  FileText,
 } from "react-feather";
 import "./index.css";
 
@@ -19,8 +14,6 @@ const SidebarNav = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const { setIsAuth } = useContext(Appcontext);
-  const [isSideMenu, setSideMenu] = useState("");
   const [isSidebarExpanded, _setSidebarExpanded] = useState(false);
   const [isMouseOverSidebar, setMouseOverSidebar] = useState(false);
 

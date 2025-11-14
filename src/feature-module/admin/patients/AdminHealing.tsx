@@ -2,8 +2,7 @@ import React, { useMemo, useState } from 'react';
 import Header from '../header';
 import SidebarNav from '../sidebar';
 import './AdminHealing.css';
-import { Card, Avatar } from 'antd';
-import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { Card, } from 'antd';
 import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
@@ -19,7 +18,7 @@ const DEFAULT_TOTAL_PHOTOS = 10;
 const DEFAULT_PHOTOS_PER_ROW = 5;
 
 const AdminHealing: React.FC = () => {
-    const [totalPhotos, setTotalPhotos] = useState<number>(DEFAULT_TOTAL_PHOTOS);
+    const [totalPhotos,] = useState<number>(DEFAULT_TOTAL_PHOTOS);
     const [perRow, setPerRow] = useState<number>(DEFAULT_PHOTOS_PER_ROW);
 
     // Generate mock photos
@@ -38,11 +37,7 @@ const AdminHealing: React.FC = () => {
     const handlePerRowChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
         setPerRow(Number(e.target.value));
 
-    const handleTotalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = Number(e.target.value);
-        if (Number.isNaN(val)) return;
-        setTotalPhotos(Math.max(0, Math.floor(val)));
-    };
+   
 
     return (
         <>
@@ -126,3 +121,8 @@ const AdminHealing: React.FC = () => {
 };
 
 export default AdminHealing;
+ // const handleTotalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const val = Number(e.target.value);
+    //     if (Number.isNaN(val)) return;
+    //     setTotalPhotos(Math.max(0, Math.floor(val)));
+    // };

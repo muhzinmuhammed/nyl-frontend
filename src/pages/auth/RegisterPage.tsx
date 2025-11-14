@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ImageWithBasePath from '../../components/imageWithBasePath';
 import { all_routes } from '../../routes/all_routes';
 import Button from '../../common/Button';
@@ -22,7 +22,7 @@ const countryData = [
 
 const RegisterPage = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
   const [selectedCountry, setSelectedCountry] = useState(countryData[0]);
@@ -37,7 +37,7 @@ const RegisterPage = () => {
     e.preventDefault();
     console.log("Registering... (redirecting to OTP page)");
 
-    navigate(all_routes.otp, { state: { from: 'register' } });
+    // navigate(all_routes.otp, { state: { from: 'register' } });
   };
 
   return (

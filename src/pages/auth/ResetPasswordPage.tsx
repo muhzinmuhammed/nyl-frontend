@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ImageWithBasePath from '../../components/imageWithBasePath';
 import { all_routes } from '../../routes/all_routes';
 import Button from '../../common/Button';

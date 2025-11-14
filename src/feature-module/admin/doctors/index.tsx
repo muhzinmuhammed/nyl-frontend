@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Table, Input, Button, Modal, Form, Upload, Select, message } from "antd";
+import { Table, Input, Button, Modal, Form, Select, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   SearchOutlined,
   SortAscendingOutlined,
-  UploadOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import SidebarNav from "../sidebar";
 import Header from "../header";
 import "./healer.css";
-import { patient1, patient2, patient3, patient4, patient5 } from "../imagepath";
+import { patient1, patient2, patient3, } from "../imagepath";
 
 const { Option } = Select;
 
@@ -211,37 +210,37 @@ const AdminDocters: React.FC = () => {
     }
   };
 
-  const uploadProps = {
-    onRemove: (file: any) => {
-      setUploadFileList((current) => {
-        const index = current.indexOf(file);
-        const newFileList = current.slice();
-        newFileList.splice(index, 1);
-        return newFileList;
-      });
-    },
-    beforeUpload: (file: any) => {
-      // prevent auto upload
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        // add a thumbnail URL so we can display it later
-        setUploadFileList((current) => [
-          ...current,
-          {
-            uid: file.uid,
-            name: file.name,
-            status: "done",
-            url: e.target?.result,
-            thumbUrl: e.target?.result,
-          },
-        ]);
-      };
-      reader.readAsDataURL(file);
-      return false;
-    },
-    fileList: uploadFileList,
-    listType: "picture",
-  };
+  // const uploadProps = {
+  //   onRemove: (file: any) => {
+  //     setUploadFileList((current) => {
+  //       const index = current.indexOf(file);
+  //       const newFileList = current.slice();
+  //       newFileList.splice(index, 1);
+  //       return newFileList;
+  //     });
+  //   },
+  //   beforeUpload: (file: any) => {
+  //     // prevent auto upload
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       // add a thumbnail URL so we can display it later
+  //       setUploadFileList((current) => [
+  //         ...current,
+  //         {
+  //           uid: file.uid,
+  //           name: file.name,
+  //           status: "done",
+  //           url: e.target?.result,
+  //           thumbUrl: e.target?.result,
+  //         },
+  //       ]);
+  //     };
+  //     reader.readAsDataURL(file);
+  //     return false;
+  //   },
+  //   fileList: uploadFileList,
+  //   listType: "picture",
+  // };
 
   return (
     <>
@@ -444,9 +443,9 @@ const AdminDocters: React.FC = () => {
           </div>
 
           <Form.Item label="Avatar / Photo">
-            <Upload {...uploadProps}>
+            {/* <Upload {...uploadProps}>
               <Button icon={<UploadOutlined />}>Choose File</Button>
-            </Upload>
+            </Upload> */}
           </Form.Item>
         </Form>
       </Modal>

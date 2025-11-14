@@ -1,4 +1,4 @@
-import React from "react";
+
 import SidebarNav from "../sidebar";
 import Header from "../header";
 import "./AdminProfile.css";

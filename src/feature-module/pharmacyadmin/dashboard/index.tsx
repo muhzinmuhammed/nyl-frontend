@@ -107,7 +107,7 @@ const ReceptionDashboard: React.FC = () => {
     <div className="page-wrapper d-flex">
       <SidebarNav />
       <div className="flex-grow-1">
-        <Header location={{ pathname: "reception-overview" }} />
+        <Header  />
 
         <div className="content container-fluid py-4">
           <h4 className="fw-bold mb-3">Welcome Reception</h4>

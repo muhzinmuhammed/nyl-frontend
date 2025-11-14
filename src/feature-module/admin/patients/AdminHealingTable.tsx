@@ -19,20 +19,6 @@ import SidebarNav from "../sidebar";
 import { itemRender, onShowSizeChange } from "../paginationfunction";
 import {
   patient1,
-  patient10,
-  patient11,
-  patient12,
-  patient13,
-  patient14,
-  patient15,
-  patient2,
-  patient3,
-  patient4,
-  patient5,
-  patient6,
-  patient7,
-  patient8,
-  patient9,
 } from "../imagepath";
 import { Link } from "react-router-dom";
 import Header from "../header";
@@ -50,6 +36,7 @@ type Patient = {
   VisitLast: string;
   Paid: string;
   image: string;
+ 
 };
 
 const AdminPatientsTable: React.FC = () => {
@@ -81,7 +68,7 @@ const AdminPatientsTable: React.FC = () => {
       Phone: "7082788201",
       VisitLast: "6 Nov 2019",
       Paid: "$310.00",
-      image: patient15,
+      image: 'patient15',
     },
   ];
 
@@ -121,11 +108,6 @@ const AdminPatientsTable: React.FC = () => {
     form.resetFields();
   };
 
-  // Upload helper: prevent automatic upload, keep file list in state
-  const beforeUpload = (file: UploadFile) => {
-    // prevent upload, just store file in state
-    return false;
-  };
 
   const fileProps = {
     beforeUpload: (file: UploadFile) => {
@@ -138,17 +120,17 @@ const AdminPatientsTable: React.FC = () => {
     fileList,
   };
 
-  const imageProps = {
-    listType: "picture",
-    beforeUpload: (file: UploadFile) => {
-      setImageList((prev) => [...prev, file]);
-      return false;
-    },
-    onRemove: (file: UploadFile) => {
-      setImageList((prev) => prev.filter((f) => f.uid !== file.uid));
-    },
-    fileList: imageList,
-  };
+  // const imageProps = {
+  //   listType: "picture",
+  //   beforeUpload: (file: UploadFile) => {
+  //     setImageList((prev) => [...prev, file]);
+  //     return false;
+  //   },
+  //   onRemove: (file: UploadFile) => {
+  //     setImageList((prev) => prev.filter((f) => f.uid !== file.uid));
+  //   },
+  //   fileList: imageList,
+  // };
 
   const columns = [
     {
@@ -215,7 +197,7 @@ const AdminPatientsTable: React.FC = () => {
       title: "Booking Type",
       dataIndex: "Paid",
       key: "Paid",
-      render: (text: any) => <span className="badge">Normal</span>,
+      render: () =>  <span className="badge">Normal</span>,
       sorter: (a: any, b: any) => a.Paid.length - b.Paid.length,
       width: 120,
     },
@@ -363,9 +345,9 @@ const AdminPatientsTable: React.FC = () => {
           </Form.Item>
 
           <Form.Item label="Upload Images">
-            <Upload {...imageProps} accept="image/*">
+            {/* <Upload {...imageProps} accept="image/*">
               <Button>Choose File</Button>
-            </Upload>
+            </Upload> */}
           </Form.Item>
 
           <Form.Item className="text-right">

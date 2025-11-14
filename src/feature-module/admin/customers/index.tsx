@@ -5,7 +5,7 @@ import { SearchOutlined, SortAscendingOutlined, UploadOutlined } from "@ant-desi
 import SidebarNav from "../sidebar";
 import Header from "../header";
 import "./customer.css";
-import { patient1, patient2, patient3, patient4, patient5 } from "../imagepath";
+import { patient1, patient2, patient3,} from "../imagepath";
 
 interface ClientData {
   key: number;

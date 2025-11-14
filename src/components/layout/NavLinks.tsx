@@ -17,18 +17,18 @@ const NavLinks: React.FC = () => {
       </li>
 
       {/* About Us */}
-      <li className={pathnames === all_routes.about ? "active" : ""}>
-        <Link to={all_routes.about}>About Us</Link>
+      <li className={pathnames === 'all_routes.about' ? "active" : ""}>
+        <Link to={'all_routes.about'}>About Us</Link>
       </li>
 
       {/* Contact */}
-      <li className={pathnames === all_routes.contact ? "active" : ""}>
-        <Link to={all_routes.contact}>Contact Us</Link>
+      <li className={pathnames === 'all_routes.contact' ? "active" : ""}>
+        <Link to={'all_routes.contact'}>Contact Us</Link>
       </li>
 
       {/* Session Details */}
-      <li className={pathnames === all_routes.sessionDetails ? "active" : ""}>
-        <Link to={all_routes.sessionDetails}>Session Details</Link>
+      <li className={pathnames === 'all_routes.sessionDetails' ? "active" : ""}>
+        <Link to={'all_routes.sessionDetails'}>Session Details</Link>
       </li>
 
 
@@ -39,7 +39,7 @@ const NavLinks: React.FC = () => {
 
       {/* Book Session Button  */}
       <li className="nav-item-btn">
-        <Link to={all_routes.bookSession}>
+        <Link to='/'>
           <Button type="button">Book Session</Button>
         </Link>
       </li>

@@ -12,8 +12,8 @@ import LoginEmailOtp from "../feature-module/frontend/Authentication/login-email
 import Signup from "../feature-module/frontend/Authentication/signup";
 import Register from "../pages/auth/RegisterPage";
 import EmailOtp from "../feature-module/frontend/Authentication/email-otp";
-import GeneralHomeOne from "../feature-module/frontend/home/home-1/generalHomeOne";
 import Home1 from "../feature-module/frontend/home/home-2";
+import Home from '../pages/HomePage'
 import Home3 from "../feature-module/frontend/home/home-3";
 import Home2 from "../feature-module/frontend/home/home-4";
 import Home5 from "../feature-module/frontend/home/home-5";
@@ -185,7 +185,6 @@ import PharmacyAdminInvoiceList from "../feature-module/pharmacyadmin/report/inv
 import PharmacyAdminReportInvoice from "../feature-module/pharmacyadmin/report/ReportInvoice";
 import PharmacyAdminSettings from "../feature-module/pharmacyadmin/settings";
 import AdminClient from "../feature-module/admin/customers";
-import ReceptionDashBoard from "../feature-module/reception/dashboard";
 import AdminPatientsTable from "../feature-module/admin/patients/AdminHealingTable";
 
 
@@ -194,11 +193,11 @@ export const publicRoutes = [
 
   {
     path: route.generalHomeOne,
-    element: <GeneralHomeOne />,
+    element: <Home />,
     route: Route,
   },
   {
-    path: route.home1,
+    path: route.home,
     element: <Home1 />,
     route: Route,
   },
@@ -1153,10 +1152,3 @@ export const pharmacyAdminRoutes = [
 
 ]
 
-export const receptionistRoutes = [
-  {
-    id: "1",
-    path: route.receptionDashboard,
-    element: <ReceptionDashBoard />,
-  }
-]

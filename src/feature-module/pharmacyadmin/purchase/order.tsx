@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Input, DatePicker, Button } from "antd";
+import { Table, Input, DatePicker } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { SearchOutlined } from "@ant-design/icons";
 import SidebarNav from "../sidebar";
@@ -126,9 +126,9 @@ const PharmacyAdminOrders: React.FC = () => {
     },
   ];
 
-  const filteredData = data.filter((item) =>
-    item.clientName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  // const filteredData = data.filter((item) =>
+  //   item.clientName.toLowerCase().includes(searchText.toLowerCase())
+  // );
 
   return (
     <>

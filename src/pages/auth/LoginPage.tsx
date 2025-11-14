@@ -37,6 +37,8 @@ const LoginPage = () => {
     e.preventDefault();
     console.log("Phone:", phoneNumber);
   };
+setPhoneNumber(phoneNumber)
+
 
   return (
     <>

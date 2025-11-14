@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import ImageWithBasePath from '../../components/imageWithBasePath';
-import { all_routes } from '../../routes/all_routes';
 import Button from '../../common/Button';
 
 const countryData = [
@@ -20,11 +18,7 @@ const countryData = [
 ];
 
 const ForgotPasswordPage = () => {
-
-    const navigate = useNavigate();
-
-
-    const [selectedCountry, setSelectedCountry] = useState(countryData[0]);
+ const [selectedCountry, setSelectedCountry] = useState(countryData[0]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleCountrySelect = (country: typeof countryData[0]) => {
@@ -37,7 +31,7 @@ const ForgotPasswordPage = () => {
 
         console.log("Finding account... (redirecting to OTP page)");
 
-        navigate(all_routes.otp, { state: { from: 'forgot_password' } });
+        // navigate(all_routes.otp, { state: { from: 'forgot_password' } });
     };
 
     return (

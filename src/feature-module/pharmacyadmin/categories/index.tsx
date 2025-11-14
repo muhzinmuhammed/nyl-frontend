@@ -128,7 +128,7 @@ const PharmacyAdminCategories: React.FC = () => {
 
   return (
     <>
-    <Header location={{ pathname: "dashboard" }} />
+    <Header  />
       <SidebarNav />
       <>
         {/* Page Wrapper*/}

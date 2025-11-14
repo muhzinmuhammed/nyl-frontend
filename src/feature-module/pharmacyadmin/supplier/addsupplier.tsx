@@ -8,7 +8,7 @@ import Header from "../header";
 const PharmacyAdminAddSupplier: React.FC = () => {
   return (
     <>
-      <Header location={{ pathname: "dashboard" }} />
+      <Header />
       <SidebarNav />
       <>
         {/* Page Wrapper */}

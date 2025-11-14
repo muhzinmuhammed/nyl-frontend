@@ -4,7 +4,6 @@ import type { ColumnsType } from "antd/es/table";
 import { SearchOutlined } from "@ant-design/icons";
 import SidebarNav from "../sidebar";
 import Header from "../header";
-import { Link } from "react-router-dom";
 import "./AdminPayments.css";
 
 import {
@@ -12,12 +11,6 @@ import {
   patient2,
   patient3,
   patient4,
-  patient5,
-  patient6,
-  patient7,
-  patient8,
-  patient9,
-  patient10,
 } from "../imagepath";
 
 const { RangePicker } = DatePicker;

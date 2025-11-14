@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import {
   Table,
   Tabs,
@@ -12,8 +12,9 @@ import {
   Row,
   Col,
   Upload,
-  DatePicker,
+
 } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import { SearchOutlined, FilterOutlined, UploadOutlined } from "@ant-design/icons";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
@@ -21,21 +22,80 @@ import { itemRender, onShowSizeChange } from "../paginationfunction";
 import SidebarNav from "../sidebar";
 import "./index.css";
 import {
-  patient1,
   patient2,
   patient3,
   patient4,
   patient5,
-  patient6,
-  patient7,
-  patient8,
-  patient9,
-  patient10,
+
 } from "../imagepath";
 import { Link } from "react-router-dom";
 import Header from "../header";
 
 const { TabPane } = Tabs;
+// Define interface (already done)
+interface SessionRecord {
+  id: number;
+  DoctorName: string;
+  PatientName: string;
+  BookingType: string;
+  Date: string;
+  time: string;
+  Amount: string;
+  images1: string;
+  Status: string;
+  ModeOfSession: string;
+  HealerName: string;
+  isToday: boolean;
+  isNew: boolean;
+  isHistory: boolean;
+  phone: string;
+  age: string;
+  email: string;
+  place: string;
+  district: string;
+  disease: string;
+  previousTreatment: string;
+  sessionName: string;
+  dateTime: string;
+}
+interface BookingRecord {
+  id: number;
+  DoctorName: string;
+  images1: string;
+  Date: string;
+  time: string;
+  BookingType: "Emergency" | "Normal";
+  ModeOfSession: string;
+  HealerName?: string;
+  Amount: string;
+  Status?: "In Progress" | "Completed" | "Not Started";
+}
+declare const activeTab: string;
+declare const openMoreInfo: (record: BookingRecord) => void;
+
+// Inside component
+
+
+// const openMoreInfo = (record: SessionRecord) => {
+//   setSelectedRecord(record);
+//   setModalVisible(true);
+//   form.setFieldsValue({
+//     sessionName: record.sessionName,
+//     healerDetails: record.HealerName,
+//     dateTime: record.dateTime,
+//     bookingType: record.BookingType,
+//     clientName: record.PatientName,
+//     phone: record.phone,
+//     age: record.age,
+//     email: record.email,
+//     modeOfSession: record.ModeOfSession,
+//     place: record.place,
+//     district: record.district,
+//     disease: record.disease,
+//     previousTreatment: record.previousTreatment,
+//   });
+// };
+
 
 const AdminAppointments = () => {
   const [activeTab, setActiveTab] = useState("todays-booking");
@@ -44,11 +104,12 @@ const AdminAppointments = () => {
 
   // Modal state
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState<SessionRecord | null>(null);
+
   const [form] = Form.useForm();
 
   // === All Appointments Data ===
-  const allData = useMemo(
+  const allData: SessionRecord[] = useMemo(
     () => [
       {
         id: 1,
@@ -212,10 +273,9 @@ const AdminAppointments = () => {
   };
 
   // Open modal & set selected record
-  const openMoreInfo = (record) => {
+  const openMoreInfo = (record: SessionRecord) => {
     setSelectedRecord(record);
     setModalVisible(true);
-    // populate form when showing
     form.setFieldsValue({
       sessionName: record.sessionName || "",
       healerDetails: record.HealerName || "",
@@ -232,6 +292,141 @@ const AdminAppointments = () => {
       previousTreatment: record.previousTreatment || "",
     });
   };
+  const getColumns = (): ColumnsType<SessionRecord> => {
+  const baseColumns: ColumnsType<SessionRecord> = [
+    {
+      title: "Client Name",
+      dataIndex: "DoctorName",
+      key: "DoctorName",
+      render: (text: string, record: SessionRecord) => (
+        <Space align="center">
+          <Avatar src={record.images1} size={36} />
+          <span className="client-name">{text}</span>
+        </Space>
+      ),
+      // sorter: (a, b) => a.DoctorName.localeCompare(b.DoctorName),
+    },
+    {
+      title: "Appointment Time",
+      dataIndex: "time",
+      key: "time",
+      render: (text: string, record: SessionRecord) => (
+        <div>
+          <div className="appointment-date">{record.Date}</div>
+          <div className="appointment-time">{text}</div>
+        </div>
+      ),
+      sorter: (a, b) => a.Date.localeCompare(b.Date),
+    },
+    {
+      title: "Booking Type",
+      dataIndex: "BookingType",
+      key: "BookingType",
+      render: (text: "Emergency" | "Normal") => (
+        <Tag
+          className={`booking-type-badge ${text === "Emergency" ? "booking-emergency" : "booking-normal"}`}
+        >
+          {text}
+        </Tag>
+      ),
+      // sorter: (a, b) => a.BookingType.localeCompare(b.BookingType),
+    },
+    {
+      title: "Mode of Session",
+      dataIndex: "ModeOfSession",
+      key: "ModeOfSession",
+      render: (text: string) => (
+        <span style={{ color: "#4318FF", fontWeight: 600 }}>{text}</span>
+      ),
+      // sorter: (a, b) => a.ModeOfSession.localeCompare(b.ModeOfSession),
+    },
+  ];
+
+  if (activeTab !== "new-bookings") {
+    baseColumns.push({
+      title: "Healer Name",
+      dataIndex: "HealerName",
+      key: "HealerName",
+      render: (text: string) => (
+        <span style={{ fontWeight: 500 }}>{text}</span>
+      ),
+      // sorter: (a, b) => (a.HealerName || "").localeCompare(b.HealerName || ""),
+    });
+  }
+
+  baseColumns.push({
+    title: "Amount",
+    dataIndex: "Amount",
+    key: "Amount",
+    render: (text: string) => <strong>{text}</strong>,
+    sorter: (a, b) =>
+      parseInt(a.Amount.replace(/\D/g, "")) -
+      parseInt(b.Amount.replace(/\D/g, "")),
+  });
+
+  if (activeTab !== "session-history") {
+    baseColumns.push({
+      title: "Session Details",
+      dataIndex: "sessionDetails",
+      key: "sessionDetails",
+      render: (_: unknown, record: SessionRecord) => (
+        <Button
+          className="more-info-btn"
+          size="small"
+          onClick={() => openMoreInfo(record)}
+        >
+          More info
+        </Button>
+      ),
+    });
+  }
+
+  if (activeTab === "new-bookings") {
+    baseColumns.push({
+      title: "Assign Healer",
+      key: "assign",
+      render: (_: unknown, record: SessionRecord) => (
+        <Button
+          size="small"
+          type="primary"
+          onClick={() => console.log("Assign", record.id)}
+        >
+          Assign
+        </Button>
+      ),
+    });
+  } else {
+    baseColumns.push({
+      title: "Status",
+      dataIndex: "Status",
+      key: "Status",
+      render: (text: string) => {
+        const statusColors = {
+          "In Progress": { color: "white", background: "#4318FF" },
+          "Completed": { color: "white", background: "#04BD6C" },
+          "Not Started": { color: "#666", background: "#E8E8E8" },
+        } as const;
+
+        const style = text && statusColors[text as keyof typeof statusColors]
+          ? statusColors[text as keyof typeof statusColors]
+          : statusColors["Not Started"];
+
+        return (
+          <span
+            className="status-badge"
+            style={{ background: style.background, color: style.color }}
+          >
+            {text || "Not Started"}
+          </span>
+        );
+      },
+      sorter: (a, b) => (a.Status || "").localeCompare(b.Status || ""),
+    });
+  }
+
+  return baseColumns;
+};
+
 
   const closeModal = () => {
     setModalVisible(false);
@@ -240,130 +435,11 @@ const AdminAppointments = () => {
   };
 
   // columns generator (keeps your logic but uses Antd components for nicer look)
-  const getColumns = () => {
-    const baseColumns = [
-      {
-        title: "Client Name",
-        dataIndex: "DoctorName",
-        key: "DoctorName",
-        render: (text, record) => (
-          <Space align="center">
-            <Avatar src={record.images1} size={36} />
-            <span className="client-name">{text}</span>
-          </Space>
-        ),
-        sorter: (a, b) => a.DoctorName.localeCompare(b.DoctorName),
-      },
-      {
-        title: "Appointment Time",
-        dataIndex: "time",
-        key: "time",
-        render: (text, record) => (
-          <div>
-            <div className="appointment-date">{record.Date}</div>
-            <div className="appointment-time">{text}</div>
-          </div>
-        ),
-        sorter: (a, b) => a.Date.localeCompare(b.Date),
-      },
-      {
-        title: "Booking Type",
-        dataIndex: "BookingType",
-        key: "BookingType",
-        render: (text) => (
-          <Tag
-            className={`booking-type-badge ${text === "Emergency" ? "booking-emergency" : "booking-normal"}`}
-          >
-            {text}
-          </Tag>
-        ),
-        sorter: (a, b) => a.BookingType.localeCompare(b.BookingType),
-      },
-      {
-        title: "Mode of Session",
-        dataIndex: "ModeOfSession",
-        key: "ModeOfSession",
-        render: (text) => (
-          <span style={{ color: "#4318FF", fontWeight: 600 }}>{text}</span>
-        ),
-        sorter: (a, b) => a.ModeOfSession.localeCompare(b.ModeOfSession),
-      },
-    ];
 
-    if (activeTab !== "new-bookings") {
-      baseColumns.push({
-        title: "Healer Name",
-        dataIndex: "HealerName",
-        key: "HealerName",
-        render: (text) => <span style={{ fontWeight: 500 }}>{text}</span>,
-        sorter: (a, b) => a.HealerName.localeCompare(b.HealerName),
-      });
-    }
-
-    baseColumns.push({
-      title: "Amount",
-      dataIndex: "Amount",
-      key: "Amount",
-      render: (text) => <strong>{text}</strong>,
-      sorter: (a, b) =>
-        parseInt(a.Amount.replace(/\D/g, "")) -
-        parseInt(b.Amount.replace(/\D/g, "")),
-    });
-
-    if (activeTab !== "session-history") {
-      baseColumns.push({
-        title: "Session Details",
-        dataIndex: "sessionDetails",
-        key: "sessionDetails",
-        render: (_, record) => (
-          <Button className="more-info-btn" size="small" onClick={() => openMoreInfo(record)}>
-            More info
-          </Button>
-        ),
-      });
-    }
-
-    if (activeTab === "new-bookings") {
-      baseColumns.push({
-        title: "Assign Healer",
-        key: "assign",
-        render: (_, record) => (
-          <Button size="small" type="primary" onClick={() => console.log("Assign", record.id)}>
-            Assign
-          </Button>
-        ),
-      });
-    } else {
-      baseColumns.push({
-        title: "Status",
-        dataIndex: "Status",
-        key: "Status",
-        render: (text) => {
-          const statusColors = {
-            "In Progress": { color: "white", background: "#4318FF" },
-            Completed: { color: "white", background: "#04BD6C" },
-            "Not Started": { color: "#666", background: "#E8E8E8" },
-          };
-          const style = statusColors[text] || statusColors["Not Started"];
-          return (
-            <span
-              className="status-badge"
-              style={{ background: style.background, color: style.color }}
-            >
-              {text}
-            </span>
-          );
-        },
-        sorter: (a, b) => a.Status.localeCompare(b.Status),
-      });
-    }
-
-    return baseColumns;
-  };
 
   const components = {
     header: {
-      cell: (props) => (
+      cell: (props: any) => (
         <th
           {...props}
           style={{
@@ -383,13 +459,13 @@ const AdminAppointments = () => {
   const rowSelection = activeTab === "new-bookings"
     ? {
       selectedRowKeys,
-      onChange: (keys) => setSelectedRowKeys(keys),
+      onChange: (keys: any) => setSelectedRowKeys(keys),
     }
     : undefined;
 
   // Upload props for demo (no actual upload handler here)
   const uploadProps = {
-    beforeUpload: (file) => {
+    beforeUpload: () => {
       // prevent auto upload; keep file in list (for demo)
       return false;
     },
@@ -489,7 +565,7 @@ const AdminAppointments = () => {
       </div>
 
       {/* More Info Modal */}
-      <Modal style={{left:'70px',top:'30px'}}
+      <Modal style={{ left: '70px', top: '30px' }}
         title={null}
         visible={modalVisible}
         onCancel={closeModal}
@@ -518,7 +594,7 @@ const AdminAppointments = () => {
             </div>
             <div style={{ marginBottom: 8 }}>{selectedRecord?.dateTime}</div>
             <Tag className={`booking-type-badge ${selectedRecord?.BookingType === "Emergency" ? "booking-emergency" : "booking-normal"}`}>
-              {selectedRecord?.BookingType}
+              {/* {selectedRecord?.BookingType} */}
             </Tag>
           </div>
         </div>

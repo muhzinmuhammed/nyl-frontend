@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ImageWithBasePath from "../../../../components/imageWithBasePath";
+import ImageWithBasePath from "../../components/imageWithBasePath";
 
 const DoctorFooter = () => {
   return (
